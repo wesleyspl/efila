@@ -1,0 +1,53 @@
+Options +FollowSymLinks
+Options -Indexes
+
+<Files ~ "^\.ht">
+	order allow,deny
+	satisfy all
+</Files>
+
+  	RewriteEngine on
+  
+	RewriteCond %{QUERY_STRING} base64_encode.*\(.*\) [OR]
+	RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR]
+	RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+	RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+	RewriteCond %{QUERY_STRING} SELECT(=|\[|\%[0-9A-Z]{0,2}) [OR]
+	RewriteCond %{QUERY_STRING} UNION(=|\[|\%[0-9A-Z]{0,2}) [OR]
+	RewriteCond %{QUERY_STRING} UPDATE(=|\[|\%[0-9A-Z]{0,2}) [OR]
+	RewriteRule ^(.*)$ index.php [L,QSA]
+
+	RewriteRule ^(.*)\.html$ membership/controller.php?file=$1 [L]
+
+<IfModule mod_gzip.c>
+	mod_gzip_on       Yes
+	mod_gzip_dechunk  Yes
+	mod_gzip_item_include file      \.(html?|txt|css|js|php|pl)$
+	mod_gzip_item_include handler   ^cgi-script$
+	mod_gzip_item_include mime      ^text/.*
+	mod_gzip_item_include mime      ^application/x-javascript.*
+	mod_gzip_item_exclude mime      ^image/.*
+	mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+</IfModule>
+
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresDefault "access plus 1 seconds"
+	ExpiresByType image/x-icon "access plus 2592000 seconds"
+	ExpiresByType image/jpeg "access plus 2592000 seconds"
+	ExpiresByType image/png "access plus 2592000 seconds"
+	ExpiresByType image/gif "access plus 2592000 seconds"
+	ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
+	ExpiresByType text/css "access plus 2592000 seconds"
+	ExpiresByType text/javascript "access plus 2592000 seconds"
+	ExpiresByType application/x-javascript "access plus 2592000 seconds"
+	ExpiresByType text/html "access plus 600 seconds"
+	ExpiresByType application/xhtml+xml "access plus 600 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header append Vary User-Agent
+  <FilesMatch "\.(ico|png|jpg|jpeg|gif|flv|mp4|js|css|txt|html|htm)$">
+    Header set Cache-Control "max-age=29030400, public"
+  </FilesMatch>
+</IfModule>
