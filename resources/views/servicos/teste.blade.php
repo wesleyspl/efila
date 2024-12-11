@@ -22,7 +22,7 @@
         </hr>
         <h4><strong>SIGLA:</strong> {{$servico->sigla}} </h4>
     </hr>
-    <h4><strong>DEPARTAMENTO:</strong> {{$departamento->nome}} </h4>
+
         </div>
     </div>
 </div>

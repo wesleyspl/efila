@@ -30,15 +30,19 @@
              <table class="table responsive">
                 <tr>
                     <th>ID</th>
-                    <th>DEPARTAMENTO</th>
-                    <th>TRIAGEM</th>
+                    <th>SERVICO</th>
+                    <th>SIGLA</th>
+                    <th><center>EMITIR</center></th>
                 </tr>
-                @if ($departamento)
-                     @foreach ($departamento as $departamentos)
+                @if ($servico)
+                     @foreach ($servico as $servicos)
                          <tr>
-                            <td>{{$departamentos->id_departamento}}</td>
-                            <td>{{$departamentos->nome}}</td>
-                            <td><a href="{{route('senha.triagem',[$departamentos->id_departamento,$departamentos->nome])}}" class="btn btn-primary"><i class="fa fa-ticket"></i> Triagem</td>
+                            <td>{{$servicos->id_servico}}</td>
+                            <td>{{$servicos->nome}}</td>
+                            <td>{{$servicos->sigla}}</td>
+                            <td ><center><a href="{{route('senha.emitir',[$servicos->id_servico,1])}}" class="btn btn-primary"><i class="fa fa-ticket"></i> Normal</a>
+                                <a href="" class="btn btn-danger"><i class="fa fa-ticket"></i> Preferencial</a> </center>
+                            </td>
                          </tr>
                       @endforeach
                 @else

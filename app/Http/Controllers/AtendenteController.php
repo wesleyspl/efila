@@ -7,7 +7,9 @@ use App\Models\Atendente;
 use App\Models\Atendente_Local;
 use App\Models\Atendente_Servico;
 use App\Models\Atendimento;
+use App\Models\Departamento;
 use App\Models\Fila;
+use App\Models\Historico;
 use App\Models\Local;
 use App\Models\Ordenacao;
 use App\Models\Pessoa;
@@ -151,18 +153,23 @@ class AtendenteController extends Controller
 
     public function painel()
     {
+            // Acessar os dados da sessão
+            $user = Auth::user();
+            $user_id = session()->all();  // ou session()->get('user_id');
+            //dd($user->pessoa_id);
+             $atendente=Atendente::where('pessoa_id',$user->pessoa_id)->first();
+            // dd($atendente);
+             $atendente->id_atendente;//
+             $servico=Atendente_Servico::with('servicos')->where('atendente_id',$atendente->id_atendente)->get();
+
+
+
         $data=[
             "titulo"=>$this->titulo,
             'subtitulo'=>$this->subtilulo
+
          ];
-           // Acessar os dados da sessão
-       $user = Auth::user();
-      $user_id = session()->all();  // ou session()->get('user_id');
-      //dd($user->pessoa_id);
-       $atendente=Atendente::where('pessoa_id',$user->pessoa_id)->first();
-      // dd($atendente);
-       $atendente->id_atendente;//
-       $servico=Atendente_Servico::with('servicos')->where('atendente_id',$atendente->id_atendente)->get();
+
        //salvando servicos para o atendente
        $user_atend=[];
       // $minhaFila['fila']=null;
@@ -171,11 +178,19 @@ class AtendenteController extends Controller
           //$minhaFila['fila']=Fila::where('servico_id',$servicos['servicos'][0]['id_servico'])->get();
        }
      //  dd($user_atend);
+     $local=Atendente_Local::with('local')->where('atendente_id',$atendente->id_atendente)->get();
+
+     //dados da senha p/ salvar na tabela atendimeto
+    //  dd($local[0]['local'][0]->nome);
+     $local_nome=$local[0]['local'][0]['nome'];
+      $local_numero=$local[0]->numero;
        foreach ($user_atend as $key => $id_servicos) {
         DB::enableQueryLog();
         $id=$id_servicos;
         $minhaFila['fila'] = Fila::select('*')->get('servico_id',$id);
        // dd(DB::getQueryLog());
+       $minhaFila['local']=$local_nome;
+       $minhaFila['numero']=$local_numero;
        }
 
       // dd($minhaFila);
@@ -252,7 +267,7 @@ class AtendenteController extends Controller
          $fila = Fila::whereIn('servico_id', $ids_servicos)->get();
 
       //   dd($fila);
-         $ord=Ordenacao::where('servico_id', $ids_servicos)->where('departamento_id',1)->get();
+         $ord=Ordenacao::where('servico_id', $ids_servicos)->get();
          $local=Atendente_Local::with('local')->where('atendente_id',$atendente->id_atendente)->get();
 
         //dados da senha p/ salvar na tabela atendimeto
@@ -270,13 +285,13 @@ class AtendenteController extends Controller
            ###### verificações
            ######IF SENHAS NORMAIS ACABAREM E SENHAS PRIORITARIAS ACABAREM RESETAR AS DUAS ####
            if(($prio_cont==$prio_total) and ($nor_cont==$nor_total)){
-            $ord=Ordenacao::where('servico_id', $ids_servicos)->where('departamento_id',1)->first(); //seleciona o registro p/ atualizar
+            $ord=Ordenacao::where('servico_id', $ids_servicos)->first(); //seleciona o registro p/ atualizar
             $ord->update(['prio_cont'=>0]); // ZERA PRIORIDADE
             $ord->update(['nor_cont'=>0]); // ZERA normal
            }
            // var_dump($prio_cont==$prio_total);
             if(($nor_cont<>$nor_total) and ($filas->peso!=0) and ($prio_cont==$prio_total)){
-                $ord=Ordenacao::where('servico_id', $ids_servicos)->where('departamento_id',1)->first(); //seleciona o registro p/ atualizar
+                $ord=Ordenacao::where('servico_id', $ids_servicos)->first(); //seleciona o registro p/ atualizar
                 $ord->update(['prio_cont'=>$prio_cont-1]); // tiro um
 // Recuperar o registro atualizado
                // $ord->update(['nor_cont'=>0]); // ZERA normal
@@ -288,7 +303,7 @@ class AtendenteController extends Controller
             #####  entao subtrai uma da normal
             #####
             if(($nor_cont==$nor_total) and ($filas->peso==0) and ($prio_cont<>$prio_total)){
-                $ord=Ordenacao::where('servico_id', $ids_servicos)->where('departamento_id',1)->first(); //seleciona o registro p/ atualizar
+                $ord=Ordenacao::where('servico_id', $ids_servicos)->first(); //seleciona o registro p/ atualizar
                 $ord->update(['nor_cont'=>$nor_cont-1]); // tiro um
 // Recuperar o registro atualizado
                // $ord->update(['nor_cont'=>0]); // ZERA normal
@@ -297,7 +312,7 @@ class AtendenteController extends Controller
 
 
             ###pega os dados atualizados
-            $ord=Ordenacao::where('servico_id', $ids_servicos)->where('departamento_id',1)->get();
+            $ord=Ordenacao::where('servico_id', $ids_servicos)->get();
 
 
            // dd($ord[0]);
@@ -313,10 +328,10 @@ class AtendenteController extends Controller
                          //  dd($prioridade->peso);
                             $p=$prioridade->peso;
                         if ($p>0) { // filtrar as prioridades
-                               $ord=Ordenacao::where('servico_id', $ids_servicos)->where('departamento_id',1)->first(); //seleciona o registro p/ atualizar
+                               $ord=Ordenacao::where('servico_id', $ids_servicos)->first(); //seleciona o registro p/ atualizar
                               // $prio_cont=$ord->prio_cont;
                                $ord->update(['prio_cont'=>$prio_cont+1]); // atualiza a tabela ordenação
-                               $fila = Fila::where('servico_id', $prioridade->servico_id)->where('departamento_id',1)->first();
+                               $fila = Fila::where('servico_id', $prioridade->servico_id)->first();
                                //monta a senha p/ salvar na tabela atendimento
                                $dados=[
                                   'sigla'=>$fila->sigla,
@@ -327,10 +342,12 @@ class AtendenteController extends Controller
                                ];
 
                               $fila->delete($fila->id_fila);//deleta da fila
+                              ## adicionar na tabela historico
+                              Historico::create($dados);
                               $atendimento= Atendimento::create($dados); //salva na tabela atendimento
 
 
-                             return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero], 201);//finaliza a função
+                             return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,'id_atendimento'=>$atendimento->id_atendimento], 201);//finaliza a função
                          }
 
 
@@ -345,9 +362,9 @@ class AtendenteController extends Controller
                  if($nor_cont<$nor_total){ //se ainda tiver senha p/ chamar normal chama
 
                     if ($prioridade->peso==0) {
-                    $ord=Ordenacao::where('servico_id', $ids_servicos)->where('departamento_id',1)->first(); //seleciona o registro p/ atualizar
+                    $ord=Ordenacao::where('servico_id', $ids_servicos)->first(); //seleciona o registro p/ atualizar
                     $ord->update(['nor_cont'=>$nor_cont+1]); // atualiza a tabela ordenação
-                    $fila = Fila::where('servico_id', $prioridade->servico_id)->where('departamento_id',1)->first();
+                    $fila = Fila::where('servico_id', $prioridade->servico_id)->first();
                     //monta a senha p/ salvar na tabela atendimento
                     $dados=[
                        'sigla'=>$fila->sigla,
@@ -359,6 +376,8 @@ class AtendenteController extends Controller
 
                    // dd($fila->id_fila);
                    $fila->delete($fila->id_fila);//deleta da fila
+                   //adicionar na tabela historico
+                   Historico::create($dados);
                    Atendimento::create($dados); //salva na tabela atendimento
                    return true; //finaliza a função
                 }
@@ -375,7 +394,40 @@ class AtendenteController extends Controller
 
     }
 
+  public function iniciaAtendimento(Atendimento $atendimento){
+
+       // dd($atendimento->id_atendimento);
+        ### PRIMEIRO  ATUALIZAR O STATOS DO ATENDIMENTO PARA ATENDENDO.
+        #####
+        $atendimento->update(['status'=>'atendendo']);
+         return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,
+                                   'id'=>$atendimento->id_atendimento], 201);//finaliza a função
 
 
+  }
+
+  public function encerraAtendimento(Atendimento $atendimento){
+       // dd($atendimento->id_atendimento);
+        ### PRIMEIRO  ATUALIZAR O STATOS DO ATENDIMENTO PARA ATENDENDO.
+        #####
+        $atendimento->update(['status'=>'finalizado']);
+        /* return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,
+                                   'id'=>$atendimento->id_atendimento], 201);//finaliza a função
+              */
+              return 1;
+  }
+
+   public function naoComapareceu(Atendimento $atendimento){
+
+     // dd($atendimento->id_atendimento);
+        ### PRIMEIRO  ATUALIZAR O STATOS DO ATENDIMENTO PARA nao compareceu.
+        #####
+        $atendimento->update(['status'=>'n_compareceu']);
+        /* return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,
+                                   'id'=>$atendimento->id_atendimento], 201);//finaliza a função
+              */
+              return 1;
+
+   }
 
 }

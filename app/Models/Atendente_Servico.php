@@ -29,5 +29,9 @@ public function servicos():HasMany{
 public function departamentos():BelongsTo{
     return $this->belongsTo(Departamento::class,'id_departamento','departemento_id');
 }
+public function atendente():BelongsTo{
+    return $this->belongsTo(Atendente::class,'id_atendente','atendente_id');
+}
+
 
 }

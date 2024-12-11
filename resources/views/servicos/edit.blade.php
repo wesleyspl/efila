@@ -18,22 +18,10 @@
     </div>
         @endif
 
-        <form role="form" method="post" action="{{route('servico.prioridade',$servico->id_servico)}}"  class="bv-form">
+        <form role="form" method="post" action="{{route('servicos.update',$servico->id_servico)}}"  class="bv-form">
            @csrf
            @method('put')
-           <div class="form-group">
-            <label>Departamento</label>
 
-           <select class="form-control" name='departamento'>
-           @if ($departamentos)
-              @foreach ($departamentos as $departamento)
-              <option>{{$departamento->nome}}</option>
-              @endforeach
-           @endif
-
-
-            </select>
-           </div>
 
 
             <div class="form-group">

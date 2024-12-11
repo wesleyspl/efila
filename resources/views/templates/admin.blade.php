@@ -271,19 +271,7 @@
                     </form>
                     <div class="clearfix"></div>
                     <!--- Profile -->
-                    <div class="profile-info">
-                        <div class="col-xs-4">
-                            <a href="profile.html" class="rounded-image profile-image"><img src="{{asset('assets/img/users/user-100.jpg')}}"></a>
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="profile-text">Welcome <b>Jane</b></div>
-                            <div class="profile-buttons">
-                                <a href="javascript:;"><i class="fa fa-envelope-o pulse"></i></a>
-                                <a href="#connect" class="open-right"><i class="fa fa-comments"></i></a>
-                                <a href="javascript:;" title="Sign Out"><i class="fa fa-power-off text-red-1"></i></a>
-                            </div>
-                        </div>
-                    </div>
+
                     <!--- Divider -->
                     <div class="clearfix"></div>
                     <hr class="divider">
@@ -291,13 +279,14 @@
                     <!--- Divider -->
                     <div id="sidebar-menu">
                         <ul class="active">
+                            <!-- eliminado departamento dessa versao
                             <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Departamentos</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                                 <ul style="">
                                     <li ><a href="{{route('departamento')}}"><span>Listar</span></a></li>
                                     <li><a href="{{route('departamento.create')}}"><span>Novo</span></a></li>
                                 </ul>
                             </li>
-
+                        -->
                             <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Prioridades</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                                 <ul style="">
                                     <li ><a href="{{route('prioridade')}}"><span>Listar</span></a></li>
@@ -330,22 +319,7 @@
                                     <li><a href="{{route('servicos.create')}}"><span>Novo</span></a></li>
                                 </ul>
                             </li>
-                            <li class="active has_sub"><a href="javascript:void(0);"><i class="icon-feather"></i><span>UI Elements</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                                <ul style="">
-                                    <li><a href="alerts.html"><span>Alerts</span></a></li>
-                                    <li><a href="buttons.html"><span>Buttons</span></a></li>
-                                    <li><a href="calendar.html"><span>Calendar</span></a></li>
-                                    <li><a href="grid.html"><span>Grid</span></a></li>
-                                    <li><a href="icons.html"><span>Icons</span></a></li>
-                                    <li><a href="modals.html"><span>Modals</span></a></li>
-                                    <li><a href="nested-list.html"><span>Nested List</span></a></li>
-                                    <li><a href="notifications.html"><span>Notifications</span></a></li>
-                                    <li><a href="portlets.html"><span>Portlets</span></a></li>
-                                    <li><a href="progress-bars.html"><span>Progress Bars</span></a></li>
-                                    <li><a href="tabs-accordions.html"><span>Tabs &amp; Accordions</span></a></li>
-                                    <li><a href="typography.html"><span>Typography</span></a></li>
-                                </ul>
-                            </li>
+
                         </ul>
                         <div class="clearfix"></div>
                     </div>

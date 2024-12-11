@@ -32,7 +32,7 @@ class Servico_PrioridadeController extends Controller
         #############################################################################################
      ###inicio mudar para servico_prioridade ######
         //pegar o departamento
-        $departamento = Departamento::find(['id_departamento', $servico->departamento_id]);
+       // $departamento = Departamento::find(['id_departamento', $servico->departamento_id]);
 
 
 
@@ -56,7 +56,7 @@ class Servico_PrioridadeController extends Controller
             "titulo" => $this->titulo,
             'subtitulo' => $this->subtilulo,
             'servico' => $servico,
-            'departamento' => $departamento[0],
+            //'departamento' => $departamento[0],
             'prioridade' => $prior,
             'servico_prior'=>$rs
         ];
@@ -103,7 +103,7 @@ class Servico_PrioridadeController extends Controller
 
 
        //pegar o departamento
-       $departamento = Departamento::find(['id_departamento', $servico->departamento_id]);
+    //   $departamento = Departamento::find(['id_departamento', $servico->departamento_id]);
 
 
 
@@ -141,7 +141,7 @@ $data = [
            "titulo" => $this->titulo,
            'subtitulo' => $this->subtilulo,
            'servico' => $servico,
-           'departamento' => $departamento[0],
+          // 'departamento' => $departamento[0],
            'prioridade' => $prior,
            'servico_prior'=>$rs,
            'pri'=>$pri,

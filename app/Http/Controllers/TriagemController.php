@@ -78,7 +78,7 @@ class TriagemController extends Controller
        $id_local=Local::where('nome',$request->local)->get();
        $id_local=$id_local[0]->id_local;
        $numero=$request->numero;
-       $departamento=Departamento::select('id_departamento')->where('nome',$request->departamento)->get();
+      // $departamento=Departamento::select('id_departamento')->where('nome',$request->departamento)->get();
        $id_atendente=$atendente->id_atendente;
        $id_servicos=$request->input('id_servico', []);
 
@@ -89,8 +89,8 @@ class TriagemController extends Controller
        foreach ($id_servicos as $servicos) {
 
 
-        $id=$departamento[0]['id_departamento'];
-        $s=Atendente_Servico::where('servico_id',$servicos)->where('departamento_id',$id)
+      //  $id=$departamento[0]['id_departamento'];
+        $s=Atendente_Servico::where('servico_id',$servicos)
         ->where('atendente_id', $id_atendente)
         ->first();
 
@@ -99,7 +99,7 @@ class TriagemController extends Controller
             $dados=[
                 'servico_id'=>$servicos,
                 'atendente_id'=>$id_atendente,
-                'departamento_id'=> $departamento[0]['id_departamento']
+               // 'departamento_id'=> $departamento[0]['id_departamento']
             ];
 
             Atendente_Servico::create($dados);
@@ -108,7 +108,8 @@ class TriagemController extends Controller
         $dados=[
             'servico_id'=>$servicos,
             'atendente_id'=>$id_atendente,
-            'departamento_id'=> $departamento[0]['id_departamento']
+
+           // 'departamento_id'=> $departamento[0]['id_departamento']
         ];
         $s->update($dados);
        }
@@ -134,12 +135,12 @@ class TriagemController extends Controller
 
 ########  CRIA O SERVIÇO NA TABELA CONTADOR FILTRANDO PARA TER SOMENTE UM SERVIÇO POR DEPARTAMENTO ############
      foreach ($id_servicos as $servicos) {
-        $id=$departamento[0]['id_departamento'];
-       $s=Contador::where('servico_id',$servicos)->where('departamento_id',$id)->first();
+       // $id=$departamento[0]['id_departamento'];
+       $s=Contador::where('servico_id',$servicos)->first();
         if(!$s){
         $dados=[
             'servico_id'=>$servicos,
-            'departamento_id'=> $departamento[0]['id_departamento'],
+            //'departamento_id'=> $departamento[0]['id_departamento'],
             'numero'=>0
         ];
 
@@ -160,11 +161,11 @@ class TriagemController extends Controller
     {
        $pessoa = Atendente::with('pessoa')->where('id_atendente',$atendente->id_atendente)->first();
 
-        $departamento=Atendente_Servico::where('atendente_id',$atendente->id_atendente)->first();
+        $servico=Atendente_Servico::where('atendente_id',$atendente->id_atendente)->first();
 
 
       #####SE NÃO TIVER NENHUM SERVICO CADASTRADO PARA O USARIO MANDA PARA ROTA TRIAGEM COM MESSAGEM 'NENHUM SERVICO CADASTRADO PARA ESSE ATENDENTE'
-      if(!$departamento){
+      if(!$servico){
         return redirect()->route('triagem')->with('error','NENHUM SERVICO CADASTRADO PARA ESSE ATENDENTE');
 
       }
@@ -194,7 +195,7 @@ class TriagemController extends Controller
               'subtitulo'=>$this->subtilulo,
               'atendente'=>$atendente,
               'pessoa'=>$pessoa['pessoa']->nome,
-              'departamento'=>$departamentos,
+            //  'departamento'=>$departamentos,
               'local'=>$nLocal,
               'numero'=>$local[0]->numero,
               'servico'=>$serv
@@ -222,13 +223,12 @@ class TriagemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id,string $id_departamento,string $id_atendente)
+    public function destroy(string $id,$id_atendente)
     {
         echo $id;
-        echo $id_departamento;
-        echo $id_atendente;
+       // echo $id_departamento;
+       // echo $id_atendente;
         Atendente_Servico::where('servico_id',$id)
-        ->where('departamento_id',$id_departamento)
         ->where('atendente_id',$id_atendente)
         ->delete();
 
@@ -251,7 +251,7 @@ class TriagemController extends Controller
         // dd($atendente[0]['pessoa']);
         $local=Local::all();
         $servicos=Servico::all();
-        $departamento=Departamento::all();
+      //  $departamento=Departamento::all();
 
           $data=[
               "titulo"=>$this->titulo,
@@ -259,7 +259,7 @@ class TriagemController extends Controller
               'atendente'=>$atendente,
               'local'=>$local,
               'servicos'=>$servicos,
-               'departamento'=>$departamento
+               //'departamento'=>$departamento
            ];
               return view('triagem.create',$data);
     }

@@ -25,8 +25,7 @@
 
 <label><strong>Atendente:</strong> {{$pessoa}}</label>
 <br>
-<label><strong>Departamento:</strong> {{$departamento[0]->nome}}</label>
-<br>
+
 <label><strong>Local:</strong> {{$local->nome}}</label>
 <br>
 <label><strong>  Numero: </strong> {{$numero}}</label>
@@ -40,7 +39,7 @@
  <td>
  <label>{{$servicos->nome}}</label> </td>
  <td>
-    <a href="{{ route('triagem.destroy', [$servicos->id_servico, $departamento[0]->id_departamento,$atendente->id_atendente]) }}" class="btn btn-danger">
+    <a href="{{ route('triagem.destroy', [$servicos->id_servico,$atendente->id_atendente]) }}" class="btn btn-danger">
         <i class="fa fa-trash"></i>
     </a>   </tr>
 

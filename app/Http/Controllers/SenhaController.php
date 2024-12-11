@@ -33,12 +33,12 @@ class SenhaController extends Controller
     }
     public function index()
     {
-        $Departamento=Departamento::paginate(10);
+        $Servico=Servico::paginate(10);
 
         $data = [
             "titulo" => $this->titulo,
             'subtitulo' => $this->subtilulo,
-            'departamento'=>$Departamento
+            'servico'=>$Servico
 
         ];
 
@@ -95,9 +95,9 @@ class SenhaController extends Controller
 
  public function triagem(string $id_triagem,string $departamento){
 
-     $servico=Servico::where('departamento_id',$id_triagem)->get();
+     $servico=Servico::where('id_servico',$id_triagem)->get();
     //$servicos=$rs->find($id_triagem);
-    $servico=Atendente_Servico::where('departamento_id',$id_triagem)->get();
+    $servico=Atendente_Servico::where('servico_id',$id_triagem)->get();
 
     //montar os dados do servico
     $servico1=[];
@@ -119,44 +119,44 @@ class SenhaController extends Controller
 
  }
 
- public function emitir(string $id_servico,string $id_departamento,string $prioridade){
+ public function emitir(string $id_servico,string $prioridade){
 
     ####################################################################################################
     #   EMITIR SENHA  PRECISA DO ID_SERVICO ID_DEPARTAMENTO E A PRIORIDADE//NO CASO AINDA NÃO TERA PESO
     #
     #
-    $id_departamento=Departamento::where('nome',$id_departamento)->first();
+    //$id_departamento=Departamento::where('nome',$id_departamento)->first();
     $sigla=Servico::where('id_servico',$id_servico)->first();
-    $numero=Contador::where('servico_id',$id_servico)->where('departamento_id',$id_departamento->id_departamento)->first();
+    $numero=Contador::where('servico_id',$id_servico)->first();
 
     # se não existir um contador para o serviço escolhido criar
     if(!$numero){
         $sn=[
             'servico_id'=>$id_servico,
-            'departamento_id'=>$id_departamento->id_departamento
+            //'departamento_id'=>$id_departamento->id_departamento
         ];
        Contador::create($sn);
     }
 
 
-    $id_departamento->id_departamento;
+   // $id_departamento->id_departamento;
     $numero->numero=$numero->numero+1;
     $sigla->sigla;
 
    $dados=[
       'sigla'=>$sigla->sigla,
       'numero'=>$numero->numero,
-      'departamento_id'=>$id_departamento->id_departamento,
+     // 'departamento_id'=>$id_departamento->id_departamento,
       'servico_id'=>$id_servico,
       'peso'=>$prioridade
    ];
 
    ### VERIFICA SE EXISTE DADOS PARA A TABELA ORDENAÇÃO CASO NÃO CRIA // TROCA DE LUGAR ESSA FUNC
-   $ord=Ordenacao::where('departamento_id',$id_departamento->id_departamento)->where('servico_id',$id_servico)->first();
+   $ord=Ordenacao::where('servico_id',$id_servico)->first();
     if(!$ord){
         $data=[
             'servico_id'=>$id_servico,
-            'departamento_id'=>$id_departamento->id_departamento
+           // 'departamento_id'=>$id_departamento->id_departamento
         ];
         Ordenacao::create($data);
 
@@ -166,7 +166,7 @@ class SenhaController extends Controller
     $numero->update(['numero'=>$numero->numero]);
 
     $senha=[
-        'departamento'=>$id_departamento->nome,
+       // 'departamento'=>$id_departamento->nome,
         'sigla'=>$sigla->sigla,
         'numero'=>$numero->numero
     ];

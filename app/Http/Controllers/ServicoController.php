@@ -55,7 +55,7 @@ class ServicoController extends Controller
         $data=[
             "titulo"=>$this->titulo,
             'subtitulo'=>$this->subtilulo,
-            'departamentos'=>Departamento::all(['nome'])
+            //'departamentos'=>Departamento::all(['nome'])
          ];
          return view('servicos.create',$data);
     }
@@ -68,8 +68,8 @@ class ServicoController extends Controller
             //validar o formulario
         $request->validated();
 
-        $departamento = Departamento::where('nome', $request->departamento)
-                             ->first(['id_departamento']);
+       // $departamento = Departamento::where('nome', $request->departamento)
+                          //   ->first(['id_departamento']);
 
 
 
@@ -77,7 +77,7 @@ class ServicoController extends Controller
         //validado agora é salvar
        $dados=['nome'=>$request->nome,
             'sigla'=>$request->sigla,
-            'departamento_id'=>$departamento->id_departamento
+           // 'departamento_id'=>$departamento->id_departamento
 
     ];
 
@@ -86,12 +86,12 @@ class ServicoController extends Controller
        Servico::create($dados);
        $id_servico=Servico::latest()->first();
       # se não existir um contador para o serviço escolhido criar
-      $numero=Contador::where('servico_id',$id_servico)->where('departamento_id',$departamento->id_departamento)->first();
+      $numero=Contador::where('servico_id',$id_servico)->first();
       //dd($id_servico->id_servico);
       if(!$numero){
          $sn=[
              'servico_id'=>$id_servico->id_servico,
-             'departamento_id'=>$departamento->id_departamento,
+            // 'departamento_id'=>$departamento->id_departamento,
              'numero'=>0
          ];
         Contador::create($sn);
@@ -117,7 +117,7 @@ class ServicoController extends Controller
             "titulo"=>$this->titulo,
             'subtitulo'=>$this->subtilulo,
             'servico'=>$servico,
-            'departamentos'=>Departamento::all()
+            //'departamentos'=>Departamento::all()
 
          ];
        return view('servicos.edit',$data);
@@ -129,8 +129,8 @@ class ServicoController extends Controller
     public function update(ServicoRequest $request, Servico $servico)
     {
         $request->validated();
-        $departamento = Departamento::where('nome', $request->departamento)
-        ->first(['id_departamento']);
+       // $departamento = Departamento::where('nome', $request->departamento)
+        //->first(['id_departamento']);
 
 
 
@@ -138,7 +138,7 @@ class ServicoController extends Controller
 //validado agora é salvar
 $dados=['nome'=>$request->nome,
 'sigla'=>$request->sigla,
-'departamento_id'=>$departamento->id_departamento
+//'departamento_id'=>$departamento->id_departamento
 
 ];       $id=['id_servico'=>$request->route('servico')];
          $servico->update($dados,$id);

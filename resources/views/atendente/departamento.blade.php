@@ -278,11 +278,11 @@
     <div class="row">
     <div class="widget darkblue-3 col-sm-3">
         <div class="widget-header">
-            <h2><strong>{{$local}}:</strong>  {{$numero}} </h2>
+            <h2><strong>---</strong> --- </h2>
 
         </div>
         <div id="painel-chamada" class="widget-content padding">
-            <p style="font-size: 30px"><marquee>livre</marquee></p>
+            <p style="font-size: 30px"><marquee>Selecione o Departamento</marquee></p>
 
         </div>
     </div>
@@ -294,24 +294,20 @@
 <div class="row">
 <div class="widget">
     <div class="widget-header transparent">
-        <h2><strong>Minhas Ações</strong> </h2>
+        <h2><strong>Departamentos disponivel para atender</strong> </h2>
 
     </div>
     <div class="widget-content padding">
         <div >
-        <a onclick="chamarProximo()" id="btn_chamar" class="btn btn-warning btn-lg d-flex align-items-center justify-content-center gap-2">
-            <span class="glyphicon glyphicon-bullhorn"></span> Chamar Próximo </a>
 
-            <button style="display:none;" id="btn_inicia" onclick="iniciaAtendimento('thisresponse.senha+')" class="btn btn-info btn-lg d-flex align-items-center justify-content-center gap-2">
-                <span class="glyphicon glyphicon-play"></span> Iniciar Atendimento
-            </button>
-            <button style="display:none;" id="btn_ninguem" onclick="naoCompareceu('thisresponse.senha+')" class="btn btn-red-1 btn-lg d-flex align-items-center justify-content-center gap-2">
-                <span class="glyphicon glyphicon-remove"></span> Não Compareceu
-            </button>
-            <button style="display:none;" id="btn_encerrar" onclick="encerraAtendimento('thisresponse.senha+')" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2">
-                <span class="glyphicon glyphicon-remove"></span> Finaliza atendimento
-            </button>
-        </button>
+            @foreach ($dpt1 as $dpts)
+
+            <a href="{{$dpts[0]->nome}}"  class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2">
+                <span class="glyphicon glyphicon-briefcase"></span> {{$dpts[0]->nome}}</a>
+
+            @endforeach
+
+
 
 
         </div>
@@ -344,7 +340,7 @@
     <footer>
         Cerrado Cloud © 2024
         <div class="footer-links pull-right">
-            <a href="#">About</a><a href="https://cerradoclound.com.br">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
+            <a href="#">About</a><a href="#">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
         </div>
     </footer>
     <!-- Footer End -->
@@ -413,7 +409,6 @@ function chamarProximo() {
            $('#btn_ninguem').show();
            $('#btn_inicia').attr('onclick', 'iniciaAtendimento("' +response.id_atendimento+ '")');
            $('#btn_ninguem').attr('onclick','naoCompareceu("'+response.id_atendimento+'")');
-           $('#btn_encerrar').hide();
            $('#btn_chamar').hide();
 
         },
@@ -423,76 +418,6 @@ function chamarProximo() {
         }
     });
 }
-
-
-function iniciaAtendimento(id) {
-    $.ajax({
-        url: 'http://efila.test/atendente.inicia/'+id, // Endpoint da sua API
-        type: 'GET', // Método da requisição
-        dataType: 'json', // Formato de resposta esperado
-        success: function(response) {
-           console.log(response.senha);
-           $('#painel-chamada').html('<p style="font-size: 30px">Atendendo: ' + response.senha + '</p>');
-           $('#btn_inicia').hide();
-           $('#btn_ninguem').hide();
-           $('#btn_inicia').attr('onclick', 'iniciaAtendimento("' +response.id+ '")');
-           $('#btn_encerrar').attr('onclick','encerraAtendimento("'+response.id+'")');
-           $('#btn_encerrar').show();
-           $('#btn_chamar').hide();
-
-        },
-        error: function(xhr, status, error) {
-            console.error("Erro ao buscar fila: ", status, error);
-            $('#fila-container').html('Erro ao carregar a fila.');
-        }
-    });
-}
-
-
-function encerraAtendimento(id) {
-    $.ajax({
-        url: 'http://efila.test/atendente.encerra/'+id, // Endpoint da sua API
-        type: 'GET', // Método da requisição
-        dataType: 'json', // Formato de resposta esperado
-        success: function(response) {
-           console.log(response.senha);
-           $('#painel-chamada').html('<p style="font-size: 30px"><marquee>Livre </marquee>  </p>');
-
-           $('#btn_encerrar').hide();
-
-
-           $('#btn_chamar').show();
-
-        },
-        error: function(xhr, status, error) {
-            console.error("Erro ao buscar fila: ", status, error);
-            $('#fila-container').html('Erro ao carregar a fila.');
-        }
-    });
-
-}
-
-function naoCompareceu(id) {
-    $.ajax({
-        url: 'http://efila.test/atendente.naoComapareceu/'+id, // Endpoint da sua API
-        type: 'GET', // Método da requisição
-        dataType: 'json', // Formato de resposta esperado
-        success: function(response) {
-           console.log(response.senha);
-           $('#painel-chamada').html('<p style="font-size: 30px"><marquee>Livre </marquee>  </p>');
-           $('#btn_inicia').hide();
-           $('#btn_ninguem').hide();
-           $('#btn_chamar').show();
-
-
-        },
-        error: function(xhr, status, error) {
-            console.error("Erro ao buscar fila: ", status, error);
-            $('#fila-container').html('Erro ao carregar a fila.');
-        }
-    });
-}
-
 
 
 

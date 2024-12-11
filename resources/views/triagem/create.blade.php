@@ -21,19 +21,7 @@
         <form role="form" method="post" action="{{route('triagem.store',$atendente->id_atendente)}}"  class="bv-form">
            @csrf
            @method('put')
-           <div class="form-group">
-           <label>Departamento</label>
 
-           <select class="form-control" name='departamento'>
-           @if ($departamento)
-              @foreach ($departamento as $departamentos)
-              <option>{{$departamentos->nome}}</option>
-              @endforeach
-           @endif
-
-
-            </select>
-           </div>
 
 
           <div class="form-group">

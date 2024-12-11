@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AtendenteController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\LocalController;
+use App\Http\Controllers\PainelController;
 use App\Http\Controllers\PrioridadeController;
 use App\Http\Controllers\SenhaController;
 use App\Http\Controllers\Servico_Prioridade;
@@ -71,20 +72,33 @@ Route::put('/atendente.update/{atendente}',[AtendenteController::class,'update']
 Route::get('/atendente.painel',[AtendenteController::class,'painel'])->name('atendente.painel');
 Route::get('/atendente.atualizaFila',[AtendenteController::class,'atualizaFila'])->name('atendente.atualizaFila');
 Route::get('/atendente.chamar',[AtendenteController::class,'chamarProximo'])->name('atendente.chamar');
-
+Route::get('/atendente.inicia/{atendimento}',[AtendenteController::class,'iniciaAtendimento'])->name('atendente.inicia');
+Route::get('/atendente.encerra/{atendimento}',[AtendenteController::class,'encerraAtendimento'])->name('atendente.encerra');
+Route::get('/atendente.naoComapareceu/{atendente}',[AtendenteController::class,'naoComapareceu'])->name('atendente.naoComapareceu');
 
 ## ----->ROTAS PARA TRIAGEM
 Route::get('/triagem',[TriagemController::class,'index'])->name('triagem');
 Route::get('/triagem.config/{atendente}',[TriagemController::class,'config'])->name('triagem.config');
 Route::put('/triagem.store/{atendente}',[TriagemController::class,'store'])->name('triagem.store');
 Route::get('/triagem.show/{atendente}',[TriagemController::class,'show'])->name('triagem.show');
-Route::get('/triagem/{id_servico}/{id_departamento}/{id_atendente}', [TriagemController::class, 'destroy'])->name('triagem.destroy');
+Route::get('/triagem/{id_servico}/{id_atendente}', [TriagemController::class, 'destroy'])->name('triagem.destroy');
 
 
 #######----->ROTAS  PARA SENHAS
 
 Route::get('/senha', [SenhaController::class, 'index'])->name('senha');
-Route::get('/senha.triagem/{id_departamento}/{departamento}', [SenhaController::class, 'triagem'])->name('senha.triagem');
-Route::get('/senha.emitir/{id_servico}/{id_departemanto}/{prioridade}', [SenhaController::class, 'emitir'])->name('senha.emitir');
+//Route::get('/senha.triagem/{id_departamento}/{departamento}', [SenhaController::class, 'triagem'])->name('senha.triagem');
+Route::get('/senha.emitir/{id_servico}/{prioridade}', [SenhaController::class, 'emitir'])->name('senha.emitir');
+
+
+
+
+
+
 });
+
+##############->ROTAS PARA PAINEIS <----#############
+Route::get('/painel/{painel}',[PainelController::class,'index'])->name('painel');
+
+
 require __DIR__.'/auth.php';
