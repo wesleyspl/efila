@@ -336,9 +336,10 @@ class AtendenteController extends Controller
                                $dados=[
                                   'sigla'=>$fila->sigla,
                                   'numero'=>$fila->numero,
-                                  'status'=>'chamado',
+                                  'status'=>'chamar',
                                   'nome_local'=>$local_nome,
-                                  'numero_local'=>$local_numero
+                                  'numero_local'=>$local_numero,
+                                  'servico_id'=>$prioridade->servico_id
                                ];
 
                               $fila->delete($fila->id_fila);//deleta da fila
@@ -369,9 +370,10 @@ class AtendenteController extends Controller
                     $dados=[
                        'sigla'=>$fila->sigla,
                        'numero'=>$fila->numero,
-                       'status'=>'chamado',
+                       'status'=>'chamar',
                        'nome_local'=>$local_nome,
-                       'numero_local'=>$local_numero
+                       'numero_local'=>$local_numero,
+                       'servico_id'=>$prioridade->servico_id
                     ];
 
                    // dd($fila->id_fila);

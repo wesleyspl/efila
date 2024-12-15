@@ -18,7 +18,8 @@ class Historico extends Model
          'nome_local',
          'status',
          'sigla',
-         'numero'
+         'numero',
+         'servico_id'
 
      ];
 }

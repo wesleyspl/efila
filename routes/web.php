@@ -98,7 +98,13 @@ Route::get('/senha.emitir/{id_servico}/{prioridade}', [SenhaController::class, '
 });
 
 ##############->ROTAS PARA PAINEIS <----#############
-Route::get('/painel/{painel}',[PainelController::class,'index'])->name('painel');
-
+Route::get('/painel.show/{painel}',[PainelController::class,'show'])->name('painel.show');
+Route::get('/painel',[PainelController::class,'index'])->name('painel');
+Route::get('/painel.create',[PainelController::class,'create'])->name('painel.create');
+Route::post('/painel.store',[PainelController::class,'store'])->name('painel.store');
+Route::get('/painel.config/{painel}',[PainelController::class,'config'])->name('painel.config');
+Route::put('/painel.save',[PainelController::class,'save'])->name('painel.save');
+Route::get('/painel.painelAtualiza/{painel}',[PainelController::class,'painelAtualiza'])->name('painel.painelAtuliza');
+//Route::get('/painel.painelAtualiza/{painel}',[PainelController::class,'painelAtualiza'])->name('painel.painelAtualiza');
 
 require __DIR__.'/auth.php';

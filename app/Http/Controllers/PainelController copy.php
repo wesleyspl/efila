@@ -8,9 +8,7 @@ use App\Models\Historico;
 use App\Models\Painel;
 use App\Models\Painel_Servico;
 use App\Models\Servico;
-use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB as FacadesDB;
 
 class PainelController extends Controller
 {
@@ -197,42 +195,33 @@ class PainelController extends Controller
       foreach ($servicos as $servicoId) {
 
            // Histórico de chamadas para o serviço, limitando a 5 e ordenando por 'created_at' decrescente
-       $historico = FacadesDB::table('historico')
-       ->join('painel_servicos','painel_servicos.servico_id','=','historico.servico_id')
-       ->where('historico.servico_id', '=', $servicoId)
-       //->orderBy('historico.created_at', 'desc') // Ordena para pegar o mais recente
-       //->limit(3) // Limita a 5 registros
+       $historico = Historico::where('servico_id', '=', $servicoId)
+       ->orderBy('created_at', 'desc') // Ordena para pegar o mais recente
+       ->limit(2) // Limita a 5 registros
        ->get(); // Obtém os históricos
 
-              $senha = FacadesDB::table('painel_servicos')
-              ->join('atendimento', 'painel_servicos.servico_id', '=', 'atendimento.servico_id')
-              ->select('*')
-              //->limit(1)
-               ->where('painel_id','=',$id)
-               ->where('status','=','chamar')
-              ->first();
+          // Consulta os atendimentos com status "chamado" para o serviço
+          $senha = Atendimento::where('servico_id', '=', $servicoId)
+              ->where('status', '=', 'chamado')
+             // Ordena os atendimentos para pegar o mais recente
+              ->first(); // Aqui é pegado o primeiro atendimento (último que foi chamado)
 
-             // dd($historico);
           // Verifica se há registros de histórico
-          if ($historico<>null) {
+          if ($historico) {
               $ultimasChamada[] = $historico;
-              Historico::where('servico_id', $servicoId)->update(['status'=>'ok']);
-              $invertido = array_reverse($ultimasChamada);
-              $ultimasChamada=$invertido;
+             // Historico::where('servico_id', $servicoId)->delete();
+            // $ultimasChamada= array_reverse($ultimasChamada);
           }
 
           // Verifica se há atendimento para esse serviço
-          if ($senha<>null) {
+          if ($senha) {
               $ultimasSenhas[] = $senha;
-              $pos=count($ultimasSenhas);
-              $a=end($ultimasSenhas);
-             // dd($ultimasSenhas[0]->id_atendimento);
-             // Atendimento::where('id_atendimento','=',$ultimasSenhas[0]->id_atendimento)->update(['status'=>'chamado']);
+              $senha->update(['status'=>'ok']);
           }
       }
 
       // Retorna os dados como JSON
-     return response()->json(['senha' => $ultimasSenhas, 'historico' => $ultimasChamada], 200);
+      return response()->json(['senha' => $ultimasSenhas, 'historico' => $ultimasChamada], 200);
   }
 
 }
