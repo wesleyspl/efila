@@ -12,6 +12,7 @@ use App\Models\Fila;
 use App\Models\Historico;
 use App\Models\Local;
 use App\Models\Ordenacao;
+use App\Models\Painel_Senha;
 use App\Models\Pessoa;
 use App\Models\User;
 use FontLib\Table\Type\loca;
@@ -156,7 +157,7 @@ class AtendenteController extends Controller
             // Acessar os dados da sessão
             $user = Auth::user();
             $user_id = session()->all();  // ou session()->get('user_id');
-            //dd($user->pessoa_id);
+           // dd($user->pessoa_id);
              $atendente=Atendente::where('pessoa_id',$user->pessoa_id)->first();
             // dd($atendente);
              $atendente->id_atendente;//
@@ -344,11 +345,12 @@ class AtendenteController extends Controller
 
                               $fila->delete($fila->id_fila);//deleta da fila
                               ## adicionar na tabela historico
-                              Historico::create($dados);
-                              $atendimento= Atendimento::create($dados); //salva na tabela atendimento
+                              //salvar na tabela painel_senha primeiro  mudança 20-12-2024 wesley
+                             // Historico::create($dados);
+                            //  $atendimento= Atendimento::create($dados); //salva na tabela atendimento
 
-
-                             return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,'id_atendimento'=>$atendimento->id_atendimento], 201);//finaliza a função
+                                $atendimento=Painel_Senha::create($dados);
+                             return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,'id_atendimento'=>$atendimento->id_painel], 201);//finaliza a função
                          }
 
 
@@ -379,8 +381,10 @@ class AtendenteController extends Controller
                    // dd($fila->id_fila);
                    $fila->delete($fila->id_fila);//deleta da fila
                    //adicionar na tabela historico
-                   Historico::create($dados);
-                   Atendimento::create($dados); //salva na tabela atendimento
+                 //  Historico::create($dados);
+                  // Atendimento::create($dados); //salva na tabela atendimento
+                  ##SALVAR PRIMEIRO NA TABELA PAINEL_SENHA
+                  $atendimento=Painel_Senha::create($dados);
                    return true; //finaliza a função
                 }
                  }
@@ -396,14 +400,36 @@ class AtendenteController extends Controller
 
     }
 
-  public function iniciaAtendimento(Atendimento $atendimento){
+  public function iniciaAtendimento(Painel_Senha $atendimento){
 
        // dd($atendimento->id_atendimento);
         ### PRIMEIRO  ATUALIZAR O STATOS DO ATENDIMENTO PARA ATENDENDO.
         #####
         $atendimento->update(['status'=>'atendendo']);
+
+
+        $dados=[
+            "painel_id"=>$atendimento->id_painel,
+            "sigla" =>$atendimento->sigla,
+            "numero" =>$atendimento->numero,
+            "status" =>$atendimento->status,
+            "nome_local" =>$atendimento->nome_local,
+            "numero_local" =>$atendimento->numero_local,
+            "servico_id" =>$atendimento->servico_id
+        ];
+        Atendimento::create($dados);
+        $atendimento->delete($atendimento->id_painel);
+
+      // dd($atendimento);
+     ##  CRIAR ROTINA AQUI CRIAR ATENDIMENTO QUANDO A SENHA TIVER STATUS ATENDENDO
+
+
+
+
+
          return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,
-                                   'id'=>$atendimento->id_atendimento], 201);//finaliza a função
+                                   'id'=>$atendimento->id_painel], 201);//finaliza a função
+
 
 
   }
@@ -412,10 +438,15 @@ class AtendenteController extends Controller
        // dd($atendimento->id_atendimento);
         ### PRIMEIRO  ATUALIZAR O STATOS DO ATENDIMENTO PARA ATENDENDO.
         #####
-        $atendimento->update(['status'=>'finalizado']);
+       ## ERRO LEVAR ID DO PAINEL OU FAZER
+      //  dd($atendimento);
+
+        $atendimento = Atendimento::where('painel_id','=',$atendimento->id_atendimento)
+        ->update(['status'=>'finalizado']);
         /* return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,
                                    'id'=>$atendimento->id_atendimento], 201);//finaliza a função
               */
+
               return 1;
   }
 
@@ -424,6 +455,7 @@ class AtendenteController extends Controller
      // dd($atendimento->id_atendimento);
         ### PRIMEIRO  ATUALIZAR O STATOS DO ATENDIMENTO PARA nao compareceu.
         #####
+
         $atendimento->update(['status'=>'n_compareceu']);
         /* return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,
                                    'id'=>$atendimento->id_atendimento], 201);//finaliza a função

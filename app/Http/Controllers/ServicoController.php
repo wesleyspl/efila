@@ -55,7 +55,7 @@ class ServicoController extends Controller
         $data=[
             "titulo"=>$this->titulo,
             'subtitulo'=>$this->subtilulo,
-            //'departamentos'=>Departamento::all(['nome'])
+            'departamentos'=>Departamento::all(['nome'])
          ];
          return view('servicos.create',$data);
     }

@@ -19,7 +19,7 @@
             background-color: #4CAF50;
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 30px;
             font-size: 24px;
         }
 
@@ -76,8 +76,9 @@
             background-color: #333;
             color: white;
             text-align: center;
-            padding: 10px;
+            padding: 30px;
             font-size: 16px;
+
         }
     </style>
 </head>
@@ -108,62 +109,67 @@
 
     <!-- Faixa inferior com informações adicionais -->
     <div class="footer">
-        <marquee>e-fila</marquee>
+        <marquee>ESPERE SUA SENHA SER CHAMADA</marquee>
     </div>
     <script>
-    function naoCompareceu() {
+ function naoCompareceu() {
     $.ajax({
-        url: 'http://efila.test/painel.painelAtualiza/{{$id_painel}}', // Endpoint da sua API
+        url: `http://efila.test/painel.painelAtualiza/{{$id_painel}}`, // Endpoint da API
         type: 'GET', // Método da requisição
-        dataType: 'json', // Formato de resposta esperado
-        success: function(response) {
-            console.log(response.historico[0]); // Verifique a estrutura da resposta
+        dataType: 'json', // Formato da resposta esperada
+        success: function (response) {
+            console.log(response.senha.sigla); // Exibe toda a resposta para depuração
 
-            // Exibindo os dados da primeira senha, caso exista
-            if (response.senha.length > 0) {
+            // Exibindo os dados da senha atual, se houver
+
                 $('#senha-atual').html(
-                    response.senha[0].sigla + response.senha[0].numero + '<br>' +
-                    response.senha[0].nome_local + ':' +response.senha[0].numero_local
+                    `${response.senha.sigla}${response.senha.numero}<br>
+                    ${response.senha.nome_local}: ${response.senha.numero_local}`
                 );
-            }
 
+            // Manipulando o histórico
             if (response.historico && Array.isArray(response.historico) && response.historico.length > 0) {
-    // Limpa o conteúdo atual da lista
-    $('#ultimas-senhas').empty();
-          var listItem=null;
-    // Itera sobre os dados retornados para a chave 'historico'
-    response.historico.forEach(function(historicoArray) {
-        // Verifica se o array 'historicoArray' tem pelo menos um item
-        if (Array.isArray(historicoArray) && historicoArray.length > 0) {
-            historicoArray.reverse();
-            // Itera sobre os itens dentro de cada sub-array 'historicoArray'
-            historicoArray.forEach(function(historico) {
-                // Cria um novo item de lista para cada 'historico'
-                   listItem = '<li>' +
-                    historico.sigla + historico.numero + '<br>' +
-                    historico.nome_local + ':' + historico.numero_local +
-                    '</li>';
+               // $('#ultimas-senhas').empty(); // Limpa a lista anterior
 
-                // Adiciona o item na lista
-                $('#ultimas-senhas').append(listItem);
-               // $('#ultimas-senhas').html(listItem);
-            });
-        }
-    });   } else {
-                // Se não houver dados ou não for um array de senhas, exibe uma mensagem de erro
+                // Limita o histórico a no máximo 5 arrays
+
+                            $('#ultimas-senhas').html(`<li>
+                                ${response.historico[0][0].sigla}${response.historico[0][0].numero}<br>
+                                ${response.historico[0][0].nome_local}: ${response.historico[0][0].numero_local}
+                            </li>
+                            <li>
+                                ${response.historico[0][1].sigla}${response.historico[0][1].numero}<br>
+                                ${response.historico[0][1].nome_local}: ${response.historico[0][1].numero_local}
+                            </li>
+                            <li>
+                                ${response.historico[0][2].sigla}${response.historico[0][2].numero}<br>
+                                ${response.historico[0][2].nome_local}: ${response.historico[0][2].numero_local}
+                            </li>
+                            <li>
+                                ${response.historico[0][3].sigla}${response.historico[0][3].numero}<br>
+                                ${response.historico[0][3].nome_local}: ${response.historico[0][3].numero_local}
+                            </li>
+
+                            `);
+
+
+
+
+            } else {
                 $('#ultimas-senhas').html('<li>Nenhuma senha foi chamada</li>');
             }
         },
-        error: function(xhr, status, error) {
+
+        error: function (xhr, status, error) {
             console.error("Erro ao buscar fila: ", status, error);
             $('#fila-container').html('Erro ao carregar a fila.');
         }
     });
 }
 
+// Atualiza automaticamente a cada 5 segundos
+setInterval(naoCompareceu, 5000);
 
-
-    setInterval(naoCompareceu, 5000);
 
 
 </script>

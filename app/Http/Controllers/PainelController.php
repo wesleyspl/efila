@@ -6,6 +6,7 @@ use App\Http\Requests\PainelRequest;
 use App\Models\Atendimento;
 use App\Models\Historico;
 use App\Models\Painel;
+use App\Models\Painel_Senha;
 use App\Models\Painel_Servico;
 use App\Models\Servico;
 use Illuminate\Container\Attributes\DB;
@@ -190,49 +191,86 @@ class PainelController extends Controller
       if ($servicos->isEmpty()) {
           return response()->json(['message' => 'Nenhum serviço encontrado para esse painel'], 404);
       }
+     // dd($servicos);
+
+       // faazer um foreach buscando os servicos no historico
+       $historico=[];
+
+                $historico= Historico::whereIn('servico_id',$servicos)
+                ->orderBy('created_at', 'desc') // Ordena pela coluna created_at, mais recente primeiro
+                ->limit(5)
+                ->get();
+              if($historico->isNotEmpty()){
+                $ultimasChamada[]=$historico;
+              }
+              #### SENHA PRA CHAMAR VAI CHAMAR A PRIMEIRA QUE ENCONTAR
 
 
 
-      // Itera sobre cada serviço
-      foreach ($servicos as $servicoId) {
+        //dd($historico);
+      ///monta o array com 5 valores
+      $tem_senha= Painel_Senha::whereIn('servico_id',$servicos)
+      ->where('status', '=', 'chamar')
+      ->get();
 
-           // Histórico de chamadas para o serviço, limitando a 5 e ordenando por 'created_at' decrescente
-       $historico = FacadesDB::table('historico')
-       ->join('painel_servicos','painel_servicos.servico_id','=','historico.servico_id')
-       ->where('historico.servico_id', '=', $servicoId)
-       //->orderBy('historico.created_at', 'desc') // Ordena para pegar o mais recente
-       //->limit(3) // Limita a 5 registros
-       ->get(); // Obtém os históricos
+     // dd($tem_senha);
 
-              $senha = FacadesDB::table('painel_servicos')
-              ->join('atendimento', 'painel_servicos.servico_id', '=', 'atendimento.servico_id')
-              ->select('*')
-              //->limit(1)
-               ->where('painel_id','=',$id)
-               ->where('status','=','chamar')
-              ->first();
 
-             // dd($historico);
-          // Verifica se há registros de histórico
-          if ($historico<>null) {
-              $ultimasChamada[] = $historico;
-              Historico::where('servico_id', $servicoId)->update(['status'=>'ok']);
-              $invertido = array_reverse($ultimasChamada);
-              $ultimasChamada=$invertido;
+          if ($tem_senha->isNotEmpty()) {
+              // Quando há resultados
+              $ultimasSenhas[]=$tem_senha[0];
+              //salva na tabela historico
+              // dd($ultimasSenhas[0]);
+              $dados=[
+                 'sigla'=>$tem_senha[0]->sigla,
+                 'numero'=>$tem_senha[0]->numero,
+                 'nome_local'=>$tem_senha[0]->nome_local,
+                 'numero_local'=>$tem_senha[0]->numero_local,
+                 'status'=>'chamado',
+                 'servico_id'=>$tem_senha[0]->servico_id
+              ];
+             Historico::create($dados);
+              Painel_Senha::where('id_painel', '=', $tem_senha[0]->id_painel)
+              ->delete();
+
+
+          } else {
+              // Quando não há resultados
+
+             $ultimasSenhas[] = $ultimasChamada[0][0];
+            // break;
           }
 
-          // Verifica se há atendimento para esse serviço
-          if ($senha<>null) {
-              $ultimasSenhas[] = $senha;
-              $pos=count($ultimasSenhas);
-              $a=end($ultimasSenhas);
-             // dd($ultimasSenhas[0]->id_atendimento);
-             // Atendimento::where('id_atendimento','=',$ultimasSenhas[0]->id_atendimento)->update(['status'=>'chamado']);
-          }
-      }
+// Verifica se a consulta retornou algum item
+/*$senhas);
+if ($senhas<>null) {
+    // Se houver itens, adicione ao array
+    $ultimasSenhas[] = $senhas;
+    echo 'aqui';
+    // Alterar status do primeiro item encontrado
+    Painel_Senha::where('id_painel', '=', $senhas[0]->id_painel)
+        ->update(['status' => 'chamado']);
+    break; // Para o loop após encontrar a primeira senha
+} */
+
+
+
+          #### SENHA PRA CHAMAR VAI CHAMAR A PRIMEIRA QUE ENCONTAR
+
+     //   dd($ultimasSenhas);
+
+
+
+
+        ###vou ter que limitar no lado do javascritp
+          // dd($ultimasChamada);
 
       // Retorna os dados como JSON
-     return response()->json(['senha' => $ultimasSenhas, 'historico' => $ultimasChamada], 200);
-  }
+    //  exit;
+   // dd($ultimasChamada);
+     return response()->json(['senha' => $ultimasSenhas[0], 'historico' => $ultimasChamada], 200);
 
-}
+
+
+      }
+        }
