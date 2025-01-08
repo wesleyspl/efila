@@ -231,7 +231,8 @@ class PainelController extends Controller
               ];
              Historico::create($dados);
               Painel_Senha::where('id_painel', '=', $tem_senha[0]->id_painel)
-              ->delete();
+              ->update(['status'=>'chamado']);
+              // ->delete();
 
 
           } else {

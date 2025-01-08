@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Painel de Senha</title>
     <style>
         body {
@@ -70,7 +71,15 @@
             font-size: 18px;
             text-align: center;
         }
+        .blink {
+    animation: blink-effect 0.5s step-start 3; /* Pisca 3 vezes */
+  }
 
+  @keyframes blink-effect {
+    50% {
+      opacity: 0;
+    }
+  }
         /* Faixa inferior de informações adicionais */
         .footer {
             background-color: #333;
@@ -112,6 +121,37 @@
         <marquee>ESPERE SUA SENHA SER CHAMADA</marquee>
     </div>
     <script>
+function speak(senhaAtual) {
+  // Verifica se a API SpeechSynthesis está disponível
+  if ('speechSynthesis' in window) {
+    // Criar uma instância de SpeechSynthesisUtterance
+    const utterance = new SpeechSynthesisUtterance(senhaAtual);
+    utterance.lang = 'pt-BR';
+
+    // Falar o texto
+    speechSynthesis.speak(utterance);
+
+    // Aplica o efeito de piscar
+    const senhaAtualElement = $('#senha-atual'); // Seleciona o elemento
+    // Aplica o efeito de piscar (mostrar e esconder)
+    let blinkCount = 0;
+    const interval = setInterval(() => {
+      if (blinkCount < 3) {  // Número de piscadas (3 vezes)
+        // Alterna a visibilidade (esconde ou mostra)
+        senhaAtualElement.toggle();
+        blinkCount++;
+      } else {
+        clearInterval(interval);  // Para o intervalo após 3 piscadas
+        senhaAtualElement.show();  // Garante que o texto fique visível no final
+      }
+    }, 500);  // Intervalo entre esconder e mostrar (0.5s)
+  } else {
+    alert('Desculpe, seu navegador não suporta a API Web Speech.');
+  }
+}
+
+
+
  function naoCompareceu() {
     $.ajax({
         url: `http://efila.test/painel.painelAtualiza/{{$id_painel}}`, // Endpoint da API
@@ -126,6 +166,12 @@
                     `${response.senha.sigla}${response.senha.numero}<br>
                     ${response.senha.nome_local}: ${response.senha.numero_local}`
                 );
+                if(response.senha.status=='chamar'){
+                    senhaAtual ='Senha '+$('#senha-atual').text()
+                    speak(senhaAtual);
+                    // Adiciona a classe para o efeito de piscar
+
+                }
 
             // Manipulando o histórico
             if (response.historico && Array.isArray(response.historico) && response.historico.length > 0) {
@@ -168,7 +214,7 @@
 }
 
 // Atualiza automaticamente a cada 5 segundos
-setInterval(naoCompareceu, 5000);
+setInterval(naoCompareceu, 10000);
 
 
 

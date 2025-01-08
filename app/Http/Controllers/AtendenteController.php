@@ -405,6 +405,7 @@ class AtendenteController extends Controller
        // dd($atendimento->id_atendimento);
         ### PRIMEIRO  ATUALIZAR O STATOS DO ATENDIMENTO PARA ATENDENDO.
         #####
+
         $atendimento->update(['status'=>'atendendo']);
 
 
@@ -434,14 +435,14 @@ class AtendenteController extends Controller
 
   }
 
-  public function encerraAtendimento(Atendimento $atendimento){
-       // dd($atendimento->id_atendimento);
+  public function encerraAtendimento($id){
+
         ### PRIMEIRO  ATUALIZAR O STATOS DO ATENDIMENTO PARA ATENDENDO.
         #####
        ## ERRO LEVAR ID DO PAINEL OU FAZER
       //  dd($atendimento);
 
-        $atendimento = Atendimento::where('painel_id','=',$atendimento->id_atendimento)
+        Atendimento::where('painel_id','=',$id)
         ->update(['status'=>'finalizado']);
         /* return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,
                                    'id'=>$atendimento->id_atendimento], 201);//finaliza a função
