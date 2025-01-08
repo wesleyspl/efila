@@ -40,6 +40,7 @@
             font-size: 48px;
             font-weight: bold;
             color: #333;
+            text-align: center;
             border-right: 2px solid #ddd;
         }
 
@@ -163,7 +164,7 @@ function speak(senhaAtual) {
             // Exibindo os dados da senha atual, se houver
 
                 $('#senha-atual').html(
-                    `${response.senha.sigla}${response.senha.numero}<br>
+                    `${response.senha.sigla}-${response.senha.numero}<br>
                     ${response.senha.nome_local}: ${response.senha.numero_local}`
                 );
                 if(response.senha.status=='chamar'){
