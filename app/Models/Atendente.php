@@ -15,7 +15,8 @@ class Atendente extends Model
 
 
      protected $fillable=[
-         'pessoa_id'
+         'pessoa_id',
+         'status'
 
      ];
 

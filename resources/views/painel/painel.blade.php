@@ -19,7 +19,7 @@
         .header {
             background-color: #4CAF50;
             color: white;
-            text-align: center;
+            text-align: left;
             padding: 30px;
             font-size: 24px;
         }
@@ -90,12 +90,25 @@
             font-size: 16px;
 
         }
+        .logo img {
+    width: auto;
+    height: 65px;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+img {
+    vertical-align: middle;
+    border-style: none;
+}
     </style>
 </head>
 <body>
 
     <div class="header">
-        E-fila idPainel
+      Efila
     </div>
 
     <div class="container">
@@ -169,6 +182,7 @@ function speak(senhaAtual) {
                 );
                 if(response.senha.status=='chamar'){
                     senhaAtual ='Senha '+$('#senha-atual').text()
+
                     speak(senhaAtual);
                     // Adiciona a classe para o efeito de piscar
 

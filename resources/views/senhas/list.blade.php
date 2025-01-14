@@ -40,8 +40,8 @@
                             <td>{{$servicos->id_servico}}</td>
                             <td>{{$servicos->nome}}</td>
                             <td>{{$servicos->sigla}}</td>
-                            <td ><center><a href="{{route('senha.emitir',[$servicos->id_servico,1])}}" class="btn btn-primary"><i class="fa fa-ticket"></i> Normal</a>
-                                <a href="" class="btn btn-danger"><i class="fa fa-ticket"></i> Preferencial</a> </center>
+                            <td ><center><a href="{{route('senha.emitir',[$servicos->id_servico,0])}}" class="btn btn-primary"><i class="fa fa-ticket"></i> Normal</a>
+                                <a href="{{route('senha.emitir',[$servicos->id_servico,1])}}" class="btn btn-danger"><i class="fa fa-ticket"></i> Preferencial</a> </center>
                             </td>
                          </tr>
                       @endforeach

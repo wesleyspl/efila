@@ -174,7 +174,7 @@ class PainelController extends Controller
       }
     }
 
-
+    return redirect()->route('painel')->with('success','Painel Atualizado!');
 
   }
 

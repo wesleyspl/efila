@@ -17,7 +17,8 @@ class Servico extends Model
     protected $fillable=[
         'nome',
         'sigla',
-        'departamento_id'
+        'departamento_id',
+        'status'
     ];
 
 

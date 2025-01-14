@@ -51,7 +51,7 @@
 
                   <td>
 
-                    <a class="btn btn-danger" ><i class="fa fa-trash-o"></i> Deletar</a>
+                    <a class="btn btn-danger"  href="{{ route('atendente.delete',$atendentes->id_atendente) }}"><i class="fa fa-trash-o"></i> Deletar</a>
                     <a class="btn btn-primary" href="{{ route('atendente.edit',$atendentes->id_atendente) }}"><i class="fa fa-refresh"></i> Atualizar</a>
 
             </td>

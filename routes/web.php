@@ -40,6 +40,7 @@ Route::get('/servico.create',[ServicoController::class,'create'])->name('servico
 Route::post('/servico.store',[ServicoController::class,'store'])->name('servicos.store');
 Route::get('/servico.edit/{servico}',[ServicoController::class,'edit'])->name('servicos.edit');
 Route::put('/servico.update/{servico}',[ServicoController::class,'update'])->name('servicos.update');
+Route::get('/servico.delete/{servico}',[ServicoController::class,'destroy'])->name('servico.delete');
 
 ## -----> ROTAS PARA PRIORIDADES
 Route::get('/prioridade.create',[PrioridadeController::class,'create'])->name('prioridade.create');
@@ -61,7 +62,7 @@ Route::get('/local.edit/{local}',[LocalController::class,'edit'])->name('local.e
 Route::put('/local.update/{local}',[LocalController::class,'update'])->name('local.update');
 Route::get('/local.create',[LocalController::class,'create'])->name('local.create');
 Route::post('/local.store',[LocalController::class,'store'])->name('local.store');
-
+Route::get('/local.delete/{local}',[LocalController::class,'destroy'])->name('local.delete');
 
 ##---> ROTAS PARA ATENDENTE
 Route::get('/atendente',[AtendenteController::class,'index'])->name('atendente');
@@ -75,6 +76,8 @@ Route::get('/atendente.chamar',[AtendenteController::class,'chamarProximo'])->na
 Route::get('/atendente.inicia/{atendimento}',[AtendenteController::class,'iniciaAtendimento'])->name('atendente.inicia');
 Route::get('/atendente.encerra/{atendimento}',[AtendenteController::class,'encerraAtendimento'])->name('atendente.encerra');
 Route::get('/atendente.naoComapareceu/{atendente}',[AtendenteController::class,'naoComapareceu'])->name('atendente.naoComapareceu');
+Route::get('/atendente.delete/{atendente}',[AtendenteController::class,'destroy'])->name('atendente.delete');
+
 
 ## ----->ROTAS PARA TRIAGEM
 Route::get('/triagem',[TriagemController::class,'index'])->name('triagem');

@@ -14,7 +14,8 @@ class Local extends Model
 
 
      protected $fillable=[
-         'nome'
+         'nome',
+         'status'
 
      ];
 

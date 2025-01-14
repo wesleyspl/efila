@@ -40,7 +40,7 @@ class ServicoController extends Controller
         $data=[
             "titulo"=>$this->titulo,
             'subtitulo'=>$this->subtilulo,
-            'servicos'=>Servico::paginate(5)
+            'servicos'=>Servico::where('status','=','ativo')->paginate(5)
          ];
             return view('servicos.list',$data);
     }
@@ -150,6 +150,7 @@ $dados=['nome'=>$request->nome,
      */
     public function destroy(Servico $servico)
     {
-        //
+        $servico->update(['status'=>'inativo']);
+        return redirect()->route('servicos')->with('success','Serviço Deletado!');
     }
 }

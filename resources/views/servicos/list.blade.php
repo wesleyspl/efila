@@ -48,7 +48,7 @@
                   <td>{{$servico->sigla}}</td>
                   <td>
                     <a class="btn btn-primary" href="{{route('servico.prioridade',$servico->id_servico)}}" ><i class="fa fa-trash-o"></i> Configurar</a>
-                    <a class="btn btn-danger" ><i class="fa fa-trash-o"></i> Deletar</a>
+                    <a class="btn btn-danger" href="{{route('servico.delete',$servico->id_servico)}}" ><i class="fa fa-trash-o"></i> Deletar</a>
                     <a class="btn btn-primary" href="{{ route('servicos.edit',$servico->id_servico) }}"><i class="fa fa-refresh"></i> Atualizar</a>
 
             </td>

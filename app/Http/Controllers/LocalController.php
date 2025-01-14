@@ -29,7 +29,7 @@ class LocalController extends Controller
     public function index()
     {
 
-        $local = Local::paginate(10);
+        $local = Local::where('status','=','ativo')->paginate(10);
 
 
 
@@ -119,6 +119,7 @@ class LocalController extends Controller
      */
     public function destroy(Local $local)
     {
-        //
+        $local->update(['status'=>'inativo']);
+        return redirect()->route('local')->with('success','Local Inativado!');
     }
 }
