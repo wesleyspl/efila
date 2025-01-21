@@ -85,8 +85,8 @@ Route::get('/triagem.config/{atendente}',[TriagemController::class,'config'])->n
 Route::put('/triagem.store/{atendente}',[TriagemController::class,'store'])->name('triagem.store');
 Route::get('/triagem.show/{atendente}',[TriagemController::class,'show'])->name('triagem.show');
 Route::get('/triagem/{id_servico}/{id_atendente}', [TriagemController::class, 'destroy'])->name('triagem.destroy');
-
-
+Route::get('/triagem.destivaServico/{id_servico}/{id_atendente}', [TriagemController::class, 'destivaServico'])->name('triagem.destivaServico');
+Route::get('/touch',[TriagemController::class,'touch'])->name('touch');
 #######----->ROTAS  PARA SENHAS
 
 Route::get('/senha', [SenhaController::class, 'index'])->name('senha');
@@ -108,6 +108,8 @@ Route::post('/painel.store',[PainelController::class,'store'])->name('painel.sto
 Route::get('/painel.config/{painel}',[PainelController::class,'config'])->name('painel.config');
 Route::put('/painel.save',[PainelController::class,'save'])->name('painel.save');
 Route::get('/painel.painelAtualiza/{painel}',[PainelController::class,'painelAtualiza'])->name('painel.painelAtuliza');
-//Route::get('/painel.painelAtualiza/{painel}',[PainelController::class,'painelAtualiza'])->name('painel.painelAtualiza');
+Route::get('/painel.destivaServico/{painel_servico}/{id}',[PainelController::class,'destivaServico'])->name('painel.destivaServico');
+Route::get('/painel.desativarPainel/{painel}',[PainelController::class,'desativarPainel'])->name('painel.desativarPainel');
+
 
 require __DIR__.'/auth.php';

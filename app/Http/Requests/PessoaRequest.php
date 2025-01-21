@@ -21,6 +21,8 @@ class PessoaRequest extends FormRequest
      */
     public function rules(): array
     {
+
+
         return [
             'nome'=>'required|unique:pessoa,nome',
             'cpf'=>'required|unique:pessoa,cpf',

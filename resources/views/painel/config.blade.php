@@ -34,6 +34,36 @@
             <input type="text" class="form-control" name="obs" disabled value="{{$painel->obs}}">
           </div>
 
+          <fieldset class="border p-3">
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Serviços do painel</label>
+             <br>
+            <div class="col-sm-10">
+
+
+    <table class="table" style="border-spacing: 0;">
+        @if ($meus_servicos)
+            @foreach ($meus_servicos as $meus)
+                <tr>
+                    <td>
+                        <label>{{$meus->nome}}</label>
+                    </td>
+                    <td>
+                        <a href="{{ route('painel.destivaServico', [$painel->id_painel,$meus->id_servico]) }}"  value="{{$meus->id_servico}}" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
+        @endif
+    </table>
+
+          </div>
+          </fieldset>
+
+
+
+          <hr color="silver">
 
           <div class="form-group">
             <label class="col-sm-2 control-label">Serviços</label>

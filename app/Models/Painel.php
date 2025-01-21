@@ -16,6 +16,7 @@ class Painel extends Model
 
          'nome',
          'obs',
-         'key'
+         'key',
+        'status'
      ];
 }

@@ -94,6 +94,9 @@
     width: auto;
     height: 65px;
 }
+.prior{
+    color: red;
+}
 img {
     max-width: 100%;
     height: auto;
@@ -178,7 +181,9 @@ function speak(senhaAtual) {
 
                 $('#senha-atual').html(
                     `${response.senha.sigla}-${response.senha.numero}<br>
-                    ${response.senha.nome_local}: ${response.senha.numero_local}`
+                    ${response.senha.nome_local}: ${response.senha.numero_local}<br>
+                    ${response.senha.peso == '1' ? '<strong class="prior">Prioritária</strong>' : ''}
+                    `
                 );
                 if(response.senha.status=='chamar'){
                     senhaAtual ='Senha '+$('#senha-atual').text()
@@ -197,10 +202,12 @@ function speak(senhaAtual) {
                             $('#ultimas-senhas').html(`<li>
                                 ${response.historico[0][0].sigla}${response.historico[0][0].numero}<br>
                                 ${response.historico[0][0].nome_local}: ${response.historico[0][0].numero_local}
+
                             </li>
                             <li>
                                 ${response.historico[0][1].sigla}${response.historico[0][1].numero}<br>
                                 ${response.historico[0][1].nome_local}: ${response.historico[0][1].numero_local}
+
                             </li>
                             <li>
                                 ${response.historico[0][2].sigla}${response.historico[0][2].numero}<br>
@@ -210,6 +217,12 @@ function speak(senhaAtual) {
                                 ${response.historico[0][3].sigla}${response.historico[0][3].numero}<br>
                                 ${response.historico[0][3].nome_local}: ${response.historico[0][3].numero_local}
                             </li>
+                             <li>
+                                ${response.historico[0][4].sigla}${response.historico[0][4].numero}<br>
+                                ${response.historico[0][4].nome_local}: ${response.historico[0][4].numero_local}
+                            </li>
+
+
 
                             `);
 

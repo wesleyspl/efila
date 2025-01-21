@@ -50,7 +50,7 @@
                   <td>{{$paineis->nome}}</td>
                   <td>{{$paineis->obs}}</td>
                   <td>
-                    <a class="btn btn-danger" ><i class="fa fa-trash-o"></i> Deletar</a>
+                    <a class="btn btn-danger"  href="{{ route('painel.desativarPainel',$paineis->id_painel) }}"><i class="fa fa-trash-o"></i> Deletar</a>
                     <a class="btn btn-primary" href="{{ route('painel.config',$paineis->id_painel) }}"><i class="fa fa-gear"></i> Configurar</a>
 
             </td>

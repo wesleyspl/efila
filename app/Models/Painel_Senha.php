@@ -19,7 +19,8 @@ class Painel_Senha extends Model
          'status',
          'sigla',
          'numero',
-         'servico_id'
+         'servico_id',
+         'peso'
 
      ];
 }

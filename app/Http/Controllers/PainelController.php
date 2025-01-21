@@ -46,7 +46,7 @@ class PainelController extends Controller
     {     $data=[
         "titulo"=>$this->titulo,
         'subtitulo'=>$this->subtilulo,
-        'painel'=>Painel::paginate(10)
+        'painel'=>Painel::where('status','=','ativo')->paginate(10)
      ];
         //buscar os painel criados
 
@@ -140,11 +140,19 @@ class PainelController extends Controller
 
   public function config(Painel $painel){
 
+
+    $servicos = Painel_Servico::where('painel_id',$painel->id_painel)->get();
+ // dd($servicos);
+// Extrai os IDs dos serviços
+ $ids_servicos = $servicos->pluck('servico_id')->toArray();
+ $rs=Servico::whereIn('id_servico', $ids_servicos)->get();
+ //dd($rs);
     $data=[
         "titulo"=>$this->titulo,
         'subtitulo'=>$this->subtilulo,
         'painel'=>$painel,
-        'servico'=>Servico::all()
+        'meus_servicos'=>Servico::whereIn('id_servico', $ids_servicos)->where('status','ativo')->get(),
+        'servico'=>Servico::whereNotIn('id_servico', $ids_servicos)->where('status','ativo')->get()
      ];
 
     return view('painel.config',$data);
@@ -160,8 +168,9 @@ class PainelController extends Controller
         $servico_id=$request->input('id_servico', []);
       foreach ($servico_id as $servico) {
         $s=Painel_Servico::where('servico_id',$servico)
-        ->first();
-        if(!$s){
+        ->where('painel_id',$painel_id)
+        ->get();
+        if($s->isEmpty()){
             $dados=['painel_id'=>$painel_id,
                     'servico_id'=>$servico
       ];
@@ -242,36 +251,37 @@ class PainelController extends Controller
             // break;
           }
 
-// Verifica se a consulta retornou algum item
-/*$senhas);
-if ($senhas<>null) {
-    // Se houver itens, adicione ao array
-    $ultimasSenhas[] = $senhas;
-    echo 'aqui';
-    // Alterar status do primeiro item encontrado
-    Painel_Senha::where('id_painel', '=', $senhas[0]->id_painel)
-        ->update(['status' => 'chamado']);
-    break; // Para o loop após encontrar a primeira senha
-} */
 
-
-
-          #### SENHA PRA CHAMAR VAI CHAMAR A PRIMEIRA QUE ENCONTAR
-
-     //   dd($ultimasSenhas);
-
-
-
-
-        ###vou ter que limitar no lado do javascritp
-          // dd($ultimasChamada);
-
-      // Retorna os dados como JSON
-    //  exit;
-   // dd($ultimasChamada);
      return response()->json(['senha' => $ultimasSenhas[0], 'historico' => $ultimasChamada], 200);
 
 
 
       }
+
+
+    public function destivaServico(string  $id_painel,string $id){
+
+       ##deleta servico para o painel
+
+       $s=Painel_Servico::where('servico_id',$id)
+       ->where('painel_id',$id_painel)
+        ->first();
+        try {
+            $s->delete();
+            return redirect()->route('painel.config',$id_painel)->with('success','Serviços Atualizados!');
+        } catch (\Throwable $th) {
+            echo "Erro: " . $th->getMessage();
         }
+    }
+
+public function desativarPainel(Painel $painel){
+
+       $painel->update(['status'=>'inativo']);
+       return redirect()->route('painel')->with('success','Painel desativado!');
+
+
+}
+
+
+  }
+

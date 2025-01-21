@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página com Cabeçalho, Rodapé Fixo e Botões Lado a Lado</title>
+    <!-- Link para o Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Garantir que o rodapé fique fixo na parte inferior da página */
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .content {
+            flex-grow: 1;
+            margin-top: 30px; /* Adicionando margem superior para afastar os botões do cabeçalho */
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header class="bg-primary text-white text-center py-4">
+        <h1>Efila- RETIRE SUA SENHA</h1>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <div class="container-fluid content">
+        <div class="row justify-content-center">
+            <div class="col-md-6 mb-3">
+                <!-- Botão 1 -->
+                <button type="button" class="btn btn-block btn-primary btn-lg">
+                    Normal
+                </button>
+            </div>
+            <div class="col-md-6 mb-3">
+                <!-- Botão 2 -->
+                <button type="button" class="btn btn-block btn-danger btn-lg">
+                    Prioritaria
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé Fixo -->
+    <footer>
+        <p>&copy; 2025 Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Scripts do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

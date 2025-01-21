@@ -111,6 +111,7 @@ class TriagemController extends Controller
 
            // 'departamento_id'=> $departamento[0]['id_departamento']
         ];
+
         $s->update($dados);
        }
 
@@ -118,8 +119,9 @@ class TriagemController extends Controller
 
        }
        ///agora salvar atendente_local
+    //  dd($id_atendente);
+       $s=Atendente_Local::where('atendente_id',$id_atendente)->first();
 
-       $s=Atendente_Local::where('atendente_id',$id_atendente)->where('local_id',$id_local)->first();
        if(!$s){
 
        $dados=[
@@ -129,8 +131,10 @@ class TriagemController extends Controller
        ];
        Atendente_Local::create($dados);
     }else{
-        $s->update(['numero'=>$numero]);
+        $s->update(['numero'=>$numero,'local_id'=>$id_local]);
     }
+
+
      //criar a contagem para os servicos
 
 ########  CRIA O SERVIÇO NA TABELA CONTADOR FILTRANDO PARA TER SOMENTE UM SERVIÇO POR DEPARTAMENTO ############
@@ -247,9 +251,14 @@ class TriagemController extends Controller
 
 
 
-        $atendente = Atendente::with('pessoa')->find($atendente->id_atendente);
-        // dd($atendente[0]['pessoa']);
+        $servicos = Atendente_Servico::where('atendente_id',$atendente->id_atendente)->get();
+        $ids_servicos = $servicos->pluck('servico_id')->toArray();
+
         $local=Local::all();
+        $numero=Atendente_Local::where('atendente_id',$atendente->id_atendente)->first();
+
+       // 'meus_servicos'=>Servico::whereIn('id_servico', $ids_servicos)->where('status','ativo')->get(),
+       // 'servico'=>Servico::whereNotIn('id_servico', $ids_servicos)->where('status','ativo')->get()
         $servicos=Servico::all();
       //  $departamento=Departamento::all();
 
@@ -258,10 +267,31 @@ class TriagemController extends Controller
               'subtitulo'=>$this->subtilulo,
               'atendente'=>$atendente,
               'local'=>$local,
-              'servicos'=>$servicos,
+              'servico'=>Servico::whereNotIn('id_servico', $ids_servicos)->where('status','ativo')->get(),
+              'meus_servicos'=>Servico::whereIn('id_servico', $ids_servicos)->where('status','ativo')->get(),
+              'numero'=>$numero
                //'departamento'=>$departamento
            ];
               return view('triagem.create',$data);
+    }
+
+
+    public function destivaServico(string $id_servico,string $id_atendente){
+
+
+              $servico=Atendente_Servico::where('servico_id','=',$id_servico)
+              ->where('atendente_id','=',$id_atendente)
+              ->first();
+              $servico->delete();
+
+              return redirect()->route('triagem.config',$id_atendente)->with('success','Serviço excluido!');
+
+
+
+    }
+
+    public function touch(){
+        return view('touch.touch');
     }
 
 }

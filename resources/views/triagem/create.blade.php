@@ -43,34 +43,69 @@
            </div>
           <div class="form-group">
             <label>Numero</label>
-            <input type="text" class="form-control"  name="numero" >
+            <input type="text" class="form-control"  value="{{$numero->numero}}" name="numero" >
           </div>
 
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Serviços</label>
 
-            <div class="col-sm-10">
-
-                @if ($servicos)
-                @foreach ($servicos as $servico)
-                <div class="checkbox">
-                  <label>
-
-                    <input type="checkbox" name="id_servico[]" value="{{$servico->id_servico}}">
-                     {{$servico->nome}}
+            <fieldset class="border p-3">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Serviços ativos para o atendente</label>
+                   <br>
+                  <div class="col-sm-10">
 
 
-                  </label>
+          <table class="table" style="border-spacing: 0;">
+              @if ($meus_servicos)
+                  @foreach ($meus_servicos as $meus)
+                      <tr>
+                          <td>
+                              <label>{{$meus->nome}}</label>
+                          </td>
+                          <td>
+                              <a href="{{ route('triagem.destivaServico', [$meus->id_servico,$atendente->id_atendente]) }}"  value="{{$meus->id_servico}}" class="btn btn-sm btn-danger">
+                                  <i class="fa fa-trash"></i>
+                              </a>
+                          </td>
+                      </tr>
+                  @endforeach
+              @endif
+          </table>
+
                 </div>
-                @endforeach
+                </fieldset>
 
-                @endif
-            </div>
 
-          </div>
 
-          <button type="submit" class="btn btn-primary">Salvar</button>
-        <input type="hidden" value="">
+                <hr color="silver">
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Serviços para ativar</label>
+
+                  <div class="col-sm-10">
+
+                      @if ($servico)
+                      @foreach ($servico as $servicos)
+                      <div class="checkbox">
+                        <label>
+
+                          <input type="checkbox" name="id_servico[]" value="{{$servicos->id_servico}}">
+                           {{$servicos->nome}}
+
+
+                        </label>
+                      </div>
+                      @endforeach
+
+                      @endif
+                  </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salvar</button>
+              <input type="hidden" value="">
+
+
+
     </form>
     </div>
 </div>

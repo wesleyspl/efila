@@ -16,10 +16,12 @@ use App\Models\Painel_Senha;
 use App\Models\Pessoa;
 use App\Models\User;
 use FontLib\Table\Type\loca;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class AtendenteController extends Controller
 {
@@ -134,11 +136,11 @@ class AtendenteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(PessoaRequest $request, Atendente $atendente)
+    public function update(Request $request, Atendente $atendente)
     {
-        $request->validated();
+      // Encontre a pessoa pelo ID
 
-        $dados=[
+      $dados=[
             'nome'=>$request->nome,
             'email'=>$request->email,
             'cpf'=>$request->cpf
@@ -167,7 +169,7 @@ class AtendenteController extends Controller
             $user_id = session()->all();  // ou session()->get('user_id');
            // dd($user->pessoa_id);
              $atendente=Atendente::where('pessoa_id',$user->pessoa_id)->first();
-            // dd($atendente);
+           //  dd($atendente);
              $atendente->id_atendente;//
              $servico=Atendente_Servico::with('servicos')->where('atendente_id',$atendente->id_atendente)->get();
 
@@ -198,13 +200,17 @@ class AtendenteController extends Controller
         $id=$id_servicos;
         $minhaFila['fila'] = Fila::select('*')->get('servico_id',$id);
        // dd(DB::getQueryLog());
+     //  dd($minhaFila);
        $minhaFila['local']=$local_nome;
        $minhaFila['numero']=$local_numero;
        }
 
-      // dd($minhaFila);
-       return view('atendente.painel',$minhaFila);
+       if($user_atend==null){
+         echo 'VOCE NÃO TEM SERVICOS ATIVOS, PROCURE  O ADMINISTRADOR DO SISTEMA.';
 
+       }else{
+       return view('atendente.painel',$minhaFila);
+       }
     }
 
     public function atualizaFila()
@@ -347,7 +353,8 @@ class AtendenteController extends Controller
             'status'=>'chamar',
             'nome_local'=>$local_nome,
             'numero_local'=>$local_numero,
-            'servico_id'=>$preferenciais[0]->servico_id
+            'servico_id'=>$preferenciais[0]->servico_id,
+             'peso'=>$preferenciais[0]->peso
          ];
 
         $fila= Fila::where('id_fila',$preferenciais[0]->id_fila)->first();//deleta da fila
@@ -410,7 +417,8 @@ class AtendenteController extends Controller
             'status'=>'chamar',
             'nome_local'=>$local_nome,
             'numero_local'=>$local_numero,
-            'servico_id'=>$normais[0]->servico_id
+            'servico_id'=>$normais[0]->servico_id,
+            'peso'=>$normais[0]->peso
          ];
 
         $fila= $normais->where('id_fila',$normais[0]->id_fila)->first();//deleta da fila
