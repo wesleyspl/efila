@@ -258,10 +258,10 @@ class AtendenteController extends Controller
 
          // Obtém o usuário autenticado
          $user = Auth::user();
-
+        
          // Busca o atendente vinculado ao usuário
          $atendente = Atendente::where('pessoa_id', $user->pessoa_id)->first();
-
+        
          if (!$atendente) {
              return response()->json(['fila' => []]); // Retorna fila vazia se não houver atendente
          }
@@ -270,10 +270,10 @@ class AtendenteController extends Controller
          $servicos = Atendente_Servico::with('servicos')
              ->where('atendente_id', $atendente->id_atendente)
              ->get();
-
+          
          // Extrai os IDs dos serviços
          $ids_servicos = $servicos->pluck('servicos.*.id_servico')->flatten()->toArray();
-
+          
          if (empty($ids_servicos)) {
              return response()->json(['fila' => []]); // Retorna fila vazia se não houver serviços
          }
@@ -282,13 +282,13 @@ class AtendenteController extends Controller
          $preferenciais = Fila::whereIn('servico_id', $ids_servicos)
          ->where('peso','=','1')
          ->get();
-
+          
          $normais = Fila::whereIn('servico_id', $ids_servicos)
          ->where('peso','=','0')
          ->get();
 
          $ord=Ordenacao::whereIn('servico_id', $ids_servicos)->get();
-         //dd($ord);
+         
          $local=Atendente_Local::with('local')->where('atendente_id',$atendente->id_atendente)->get();
 
         //dados da senha p/ salvar na tabela atendimeto
@@ -440,12 +440,12 @@ class AtendenteController extends Controller
        // dd($atendimento->id_atendimento);
         ### PRIMEIRO  ATUALIZAR O STATOS DO ATENDIMENTO PARA ATENDENDO.
         #####
-
+      //  dd($atendimento);
         $atendimento->update(['status'=>'atendendo']);
 
 
         $dados=[
-            "painel_id"=>$atendimento->id_painel,
+           // "painel_id"=>$atendimento->id_painel,
             "sigla" =>$atendimento->sigla,
             "numero" =>$atendimento->numero,
             "status" =>$atendimento->status,

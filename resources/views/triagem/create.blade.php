@@ -43,7 +43,7 @@
            </div>
           <div class="form-group">
             <label>Numero</label>
-            <input type="text" class="form-control"  value="{{$numero->numero}}" name="numero" >
+            <input type="text" class="form-control"  value="" name="numero" >
           </div>
 
 

@@ -236,7 +236,8 @@ class PainelController extends Controller
                  'nome_local'=>$tem_senha[0]->nome_local,
                  'numero_local'=>$tem_senha[0]->numero_local,
                  'status'=>'chamado',
-                 'servico_id'=>$tem_senha[0]->servico_id
+                 'servico_id'=>$tem_senha[0]->servico_id,
+                 'painel_id'=>$id
               ];
              Historico::create($dados);
               Painel_Senha::where('id_painel', '=', $tem_senha[0]->id_painel)
@@ -248,6 +249,7 @@ class PainelController extends Controller
               // Quando não há resultados
 
              $ultimasSenhas[] = $ultimasChamada[0][0];
+             
             // break;
           }
 

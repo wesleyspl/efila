@@ -19,7 +19,8 @@ class Historico extends Model
          'status',
          'sigla',
          'numero',
-         'servico_id'
+         'servico_id',
+         'painel_id'
 
      ];
 }
