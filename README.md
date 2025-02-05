@@ -16,6 +16,6 @@ Ainda estamos em uma versão bem embrionária, porem os processos principais já
 ## Requisitos
 
 Apache com php 8.1 e um banco de dados podendo ser mysql ou algum outro banco relacional.
-<p align="center"><a href="https://cerrdoclound.com.br" target="_blank"><img src="https://cerradoclound.com.br/public/uploads/slider-1.png" width="400" alt="cerrado cloud"></a></p>
+<p align="center"><a href="https://cerrdoclound.com.br" target="_blank"><img src="https://cerradoclound.com.br/public/uploads/slider-1.png" width="600" height="400" alt="cerrado cloud"></a></p>
 
 
