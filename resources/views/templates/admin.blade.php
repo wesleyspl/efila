@@ -139,7 +139,7 @@
         <div class="topbar">
             <div class="topbar-left">
                 <div class="logo">
-                    <h1><a href="#"><img src="{{asset('assets/img/logo.png')}}" alt="Logo"></a></h1>
+                    
                 </div>
                 <button class="button-menu-mobile open-left">
                     <i class="fa fa-bars"></i>
@@ -262,13 +262,8 @@
         <div class="left side-menu">
             <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 732px;">
                 <div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 732px;">
-                    <!-- Search form -->
-                    <form role="search" class="navbar-form">
-                        <div class="form-group">
-                            <input type="text" placeholder="Search" class="form-control">
-                            <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>
-                        </div>
-                    </form>
+                   
+                  
                     <div class="clearfix"></div>
                     <!--- Profile -->
 
@@ -287,7 +282,7 @@
                                 </ul>
                             </li>
                         -->
-                            <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Prioridades</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
+                            <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Prioridades *não funcional</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                                 <ul style="">
                                     <li ><a href="{{route('prioridade')}}"><span>Listar</span></a></li>
                                     <li><a href="{{route('prioridade.create')}}"><span>Novo</span></a></li>

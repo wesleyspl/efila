@@ -6,14 +6,36 @@ use App\Models\Home;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
-{
+{   
+     public $titulo;
+     public $subtilulo;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function __construct()
+
+
     {
-        //
+       $this->titulo='Home';
+       $this->subtilulo='Sistema de gerenciamento de senhas';
+ 
+ 
+ 
     }
+ 
+ 
+     public function index()
+     {
+        
+ 
+ 
+ 
+         $data=[
+             "titulo"=>$this->titulo,
+             'subtitulo'=>$this->subtilulo
+         ];
+             return view('home',$data);
+     }
 
     /**
      * Show the form for creating a new resource.

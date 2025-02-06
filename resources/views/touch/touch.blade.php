@@ -19,6 +19,15 @@
             flex-grow: 1;
             margin-top: 30px; /* Adicionando margem superior para afastar os botões do cabeçalho */
         }
+        
+        #cabeca {
+           
+          
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
 
         footer {
             position: fixed;
@@ -59,8 +68,8 @@
 <body>
 
     <!-- Cabeçalho -->
-    <header class="bg-primary text-white text-center py-4">
-        <h1>Efila - RETIRE SUA SENHA</h1>
+    <header id='cabeca'>
+        <h4>Escolha um serviço </h4>
     </header>
 
     @livewireScripts
