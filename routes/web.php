@@ -11,6 +11,7 @@ use App\Http\Controllers\SenhaController;
 use App\Http\Controllers\Servico_Prioridade;
 use App\Http\Controllers\Servico_PrioridadeController;
 use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\TouchController;
 use App\Http\Controllers\TriagemController;
 use App\Models\Departamento;
 use Illuminate\Support\Facades\Route;
@@ -87,7 +88,19 @@ Route::put('/triagem.store/{atendente}',[TriagemController::class,'store'])->nam
 Route::get('/triagem.show/{atendente}',[TriagemController::class,'show'])->name('triagem.show');
 Route::get('/triagem/{id_servico}/{id_atendente}', [TriagemController::class, 'destroy'])->name('triagem.destroy');
 Route::get('/triagem.destivaServico/{id_servico}/{id_atendente}', [TriagemController::class, 'destivaServico'])->name('triagem.destivaServico');
-Route::get('/touch',[TriagemController::class,'touch'])->name('touch');
+
+
+## ---->    ROTAS PRA PAINELTOUCH 
+Route::get('/touch',[TouchController::class,'index'])->name('touch');
+Route::get('/touch.create',[TouchController::class,'create'])->name('touch.create');
+Route::put('/touch.store',[TouchController::class,'store'])->name('touch.store');
+Route::get('/touch.config/{touch}',[TouchController::class,'config'])->name('touch.config');
+Route::put('/touch.save',[TouchController::class,'save'])->name('touch.save');
+Route::get('/touch.destivaServico/{id_touch}/{id}',[TouchController::class,'destivaServico'])->name('touch.destivaServico');
+
+
+
+
 #######----->ROTAS  PARA SENHAS
 
 Route::get('/senha', [SenhaController::class, 'index'])->name('senha');

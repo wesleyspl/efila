@@ -290,8 +290,8 @@
                             </li>
                             <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Paineis</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                                 <ul style="">
-                                    <li ><a href="{{route('painel')}}"><span>Listar</span></a></li>
-                                    <li><a href="{{route('painel.create')}}"><span>Novo</span></a></li>
+                                    <li ><a href="{{route('painel')}}"><span>Painel de Senha</span></a></li>
+                                    <li><a href="{{route('touch')}}"><span>Painel Touch</span></a></li>
                                 </ul>
                             </li>
                             <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Triagem</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
