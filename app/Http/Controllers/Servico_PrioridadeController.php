@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Servico_PrioridadeRequest;
 use App\Models\Departamento;
+use App\Models\Ordenacao;
 use App\Models\Prioridade;
 use App\Models\Servico;
 use App\Models\Servico_Prioridade;
@@ -29,39 +30,27 @@ class Servico_PrioridadeController extends Controller
 
     public function index(Servico $servico)
     {
-        #############################################################################################
-     ###inicio mudar para servico_prioridade ######
-        //pegar o departamento
-       // $departamento = Departamento::find(['id_departamento', $servico->departamento_id]);
+         # @##########################
+         # MODIFICAR A FREQUENCIA DAS SENHAS A SEREM CHAMADAS
+         # PRIORIDADES E NORMAIS
+         # JA VEM PADRAO DO SISTEMA  PRIORIDADES=5 E NORMAIS=5 POR DEFAULT
 
 
 
-
-        //pegar todos as prioridades do  seviço com hasmany
-        $rs = Servico::with('prioridades')->find($servico->id_servico);
-
+      # PEGAR A ORDENAÇÃO COM O ID DO SERVIÇO
+        $rs = Ordenacao::where('servico_id', $servico->id_servico)->first();
         // Verifica se o serviço foi encontrado
-        if ($rs) {
-            $prior = []; // Inicializa o array para armazenar as prioridades
-
-            // Itera sobre as prioridades do serviço e adiciona ao array
-            foreach ($rs->prioridades as $propriedade) {
-                $prior[] = Prioridade::where('id_prioridade', $propriedade->prioridade_id)->get();
-            }
-        }
-
+       
         // Exibe o array de prioridades para verificação
 
         $data = [
             "titulo" => $this->titulo,
             'subtitulo' => $this->subtilulo,
             'servico' => $servico,
-            //'departamento' => $departamento[0],
-            'prioridade' => $prior,
-            'servico_prior'=>$rs
+           'ordenacao' => $rs
         ];
 
-        return view('servicos.teste', $data);
+        return view('servicos.config', $data);
         ##########################################
     }
 
@@ -163,22 +152,22 @@ $data = [
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        ###função movida de prioridade
-        ///transferir esse funççao para o controller dela
-        $request->validated();
+    {   
 
+       
         $data=[
-           'servico_id'=>$request->id_servico,
-           'prioridade_id'=>$request->id_prioridade
+           'prio_total'=>$request->prioridade,
+           'nor_total'=>$request->normal,
+           'nor_cont'=>0,
+           'prio_cont'=>0
 
 
 
         ];
 
-        Servico_Prioridade::create($data);
+        Ordenacao::where('servico_id', $id)->update($data);
 
-        return redirect()->route('servicos')->with('success','Prioridade adicionada ao servico com sucesso!');
+        return redirect()->route('servicos')->with('success','Frequência do serviço atualizada!');
 
     }
 

@@ -141,10 +141,14 @@ class SenhaController extends Controller
 
    // $id_departamento->id_departamento;
     $numero->numero=$numero->numero+1;
-    $sigla->sigla;
-
+     $sig= $sigla->sigla;
+    
+    if($prioridade!=0){
+         $sig='P'.$sigla->sigla;
+    }
+     
    $dados=[
-      'sigla'=>$sigla->sigla,
+      'sigla'=>$sig,
       'numero'=>$numero->numero,
      // 'departamento_id'=>$id_departamento->id_departamento,
       'servico_id'=>$id_servico,
@@ -167,7 +171,7 @@ class SenhaController extends Controller
 
     $senha=[
        // 'departamento'=>$id_departamento->nome,
-        'sigla'=>$sigla->sigla,
+        'sigla'=>$sig,
         'numero'=>$numero->numero
     ];
 

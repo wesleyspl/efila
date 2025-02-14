@@ -50,8 +50,8 @@
                   <td>{{$paineis->nome}}</td>
                   <td>{{$paineis->obs}}</td>
                   <td>
-                    <a class="btn btn-info"  target="_blank"  href="{{ route('painel.show',$paineis->id_touch) }}"><i class="fa fa-eye"></i> Abrir painel</a>
-                    <a class="btn btn-danger"  href="{{ route('painel.desativarPainel',$paineis->id_touch) }}"><i class="fa fa-trash-o"></i> Deletar</a>
+                    <a class="btn btn-info"  target="_blank"  href="{{ route('touch.show',$paineis->id_touch) }}"><i class="fa fa-eye"></i> Abrir painel</a>
+                    <a class="btn btn-danger"  href="{{ route('touch.desativarPainel',$paineis->id_touch) }}"><i class="fa fa-trash-o"></i> Deletar</a>
                     <a class="btn btn-primary" href="{{ route('touch.config',$paineis->id_touch) }}"><i class="fa fa-gear"></i> Configurar</a>
 
             </td>

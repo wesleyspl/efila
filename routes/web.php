@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/touch.show/{touch}',[TouchController::class,'show'])->name('touch.show');
+Route::get('/senha.emitir/{id_servico}/{prioridade}', [SenhaController::class, 'emitir'])->name('senha.emitir');
 
 Route::middleware('auth')->group(function () {
 
@@ -97,15 +99,14 @@ Route::put('/touch.store',[TouchController::class,'store'])->name('touch.store')
 Route::get('/touch.config/{touch}',[TouchController::class,'config'])->name('touch.config');
 Route::put('/touch.save',[TouchController::class,'save'])->name('touch.save');
 Route::get('/touch.destivaServico/{id_touch}/{id}',[TouchController::class,'destivaServico'])->name('touch.destivaServico');
-
-
+Route::get('/touch.desativarPainel/{touch}',[TouchController::class,'desativarPainel'])->name('touch.desativarPainel');
+  
 
 
 #######----->ROTAS  PARA SENHAS
 
 Route::get('/senha', [SenhaController::class, 'index'])->name('senha');
 //Route::get('/senha.triagem/{id_departamento}/{departamento}', [SenhaController::class, 'triagem'])->name('senha.triagem');
-Route::get('/senha.emitir/{id_servico}/{prioridade}', [SenhaController::class, 'emitir'])->name('senha.emitir');
 
 
 

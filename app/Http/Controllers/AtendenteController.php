@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\QueueHelper;
 use App\Http\Requests\PessoaRequest;
 use App\Models\Atendente;
 use App\Models\Atendente_Local;
@@ -301,139 +302,13 @@ class AtendenteController extends Controller
             */
 
 
-
-
-     if ($preferenciais->isNotEmpty()) {
-
-
-         $ord=Ordenacao::where('servico_id',$preferenciais[0]->servico_id)->first(); //seleciona o registro p/ atualizar
-         $this->prio_cont=$ord->prio_cont;
-         $this->prio_total=$ord->prio_total;
-         $this->nor_cont=$ord->nor_cont;
-         $this->nor_total=$ord->nor_total;
-
-
-        ##SE SENHA PRIORIDADE E SENHA NORMAL CHEGAM AO FIM RESETA TODAS E RECOMEÇA
-        if(($this->prio_cont==$this->prio_total) and ($this->nor_cont==$this->nor_total)){
-            $ord=Ordenacao::where('servico_id',$preferenciais[0]->servico_id)->first(); //seleciona o registro p/ atualizar
-            $ord->update(['prio_cont'=>0]); // ZERA PRIORIDADE
-            $ord->update(['nor_cont'=>0]); // ZERA normal
-           }
-
-
-   // var_dump($prio_cont==$prio_total);
-   if(($this->nor_cont<>$this->nor_total) and ($preferenciais[0]->peso!=0) and ($this->prio_cont==$this->prio_total)){
-    $ord=Ordenacao::where('servico_id', $preferenciais[0]->servico_id)->first(); //seleciona o registro p/ atualizar
-    $ord->update(['prio_cont'=>$this->prio_cont-1]); // tiro um
-// Recuperar o registro atualizado
-   // $ord->update(['nor_cont'=>0]); // ZERA normal
-
+ // Handle priority tickets
+ if ($preferenciais->isNotEmpty()) {
+    return QueueHelper::handlePriorityTickets($preferenciais,$normais, $local_nome, $local_numero);
+} else {
+    return QueueHelper::handleNormalTickets($normais,$preferenciais, $local_nome, $local_numero);
 }
-
-            #### PEGA ORDENAÇÃO MAIS UMA VEZ APOS ATUALIZAR
-        $ord=Ordenacao::where('servico_id',$preferenciais[0]->servico_id)->first(); //seleciona o registro p/ atualizar
-
-        $this->prio_cont=$ord->prio_cont;
-        $this->prio_total=$ord->prio_total;
-        $this->nor_cont=$ord->nor_cont;
-        $this->nor_total=$ord->nor_total;
-
-
-
-
-
-
-        if (($preferenciais[0]->peso!=0) and ($this->prio_cont < $this->prio_total)) {
-        // $prio_cont=$ord->prio_cont;
-         $ord->update(['prio_cont'=>$this->prio_cont+1]); // atualiza a tabela ordenação
-
-         $dados=[
-            'sigla'=>$preferenciais[0]->sigla,
-            'numero'=>$preferenciais[0]->numero,
-            'status'=>'chamar',
-            'nome_local'=>$local_nome,
-            'numero_local'=>$local_numero,
-            'servico_id'=>$preferenciais[0]->servico_id,
-             'peso'=>$preferenciais[0]->peso
-         ];
-
-        $fila= Fila::where('id_fila',$preferenciais[0]->id_fila)->first();//deleta da fila
-         $fila->delete();
-        $atendimento=Painel_Senha::create($dados);
-        return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,'id_atendimento'=>$atendimento->id_painel], 201);//finaliza a função
-
-        }
-
-
-     }else{
-        $ord=Ordenacao::where('servico_id',$normais[0]->servico_id)->first(); //seleciona o registro p/ atualizar
-
-        $this->prio_cont=$ord->prio_cont;
-        $this->prio_total=$ord->prio_total;
-        $this->nor_cont=$ord->nor_cont;
-        $this->nor_total=$ord->nor_total;
-
-
-         ##SE SENHA PRIORIDADE E SENHA NORMAL CHEGAM AO FIM RESETA TODAS E RECOMEÇA
-         if(($this->prio_cont==$this->prio_total) and ($this->nor_cont==$this->nor_total)){
-            $ord=Ordenacao::where('servico_id',$normais[0]->servico_id)->first(); //seleciona o registro p/ atualizar
-            $ord->update(['prio_cont'=>0]); // ZERA PRIORIDADE
-            $ord->update(['nor_cont'=>0]); // ZERA normal
-           }
-
-
-
-
-
-        if(($this->nor_cont==$this->nor_total) and ($normais[0]->peso==0) and ($this->prio_cont<>$this->prio_total)){
-            $ord=Ordenacao::where('servico_id', $normais[0]->servico_id)->first(); //seleciona o registro p/ atualizar
-            $ord->update(['nor_cont'=>$this->nor_cont-1]); // tiro um
-// Recuperar o registro atualizado
-           // $ord->update(['nor_cont'=>0]); // ZERA normal
-
-
-        }
-
-
-
-
-        #### PEGA ORDENAÇÃO MAIS UMA VEZ APOS ATUALIZAR
-        $ord=Ordenacao::where('servico_id',$normais[0]->servico_id)->first(); //seleciona o registro p/ atualizar
-
-        $this->prio_cont=$ord->prio_cont;
-        $this->prio_total=$ord->prio_total;
-        $this->nor_cont=$ord->nor_cont;
-        $this->nor_total=$ord->nor_total;
-
-
-
-
-        if (($normais[0]->peso==0) and ($this->nor_cont < $this->nor_total)) {
-         $ord->update(['nor_cont'=>$this->nor_cont+1]); // atualiza a tabela ordenação
-
-         $dados=[
-            'sigla'=>$normais[0]->sigla,
-            'numero'=>$normais[0]->numero,
-            'status'=>'chamar',
-            'nome_local'=>$local_nome,
-            'numero_local'=>$local_numero,
-            'servico_id'=>$normais[0]->servico_id,
-            'peso'=>$normais[0]->peso
-         ];
-
-        $fila= $normais->where('id_fila',$normais[0]->id_fila)->first();//deleta da fila
-
-        $fila->delete();
-        $atendimento=Painel_Senha::create($dados);
-        return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,'id_atendimento'=>$atendimento->id_painel], 201);//finaliza a função
-        }
-
-     }
-
-
-
-
-    }
+  }
 
   public function iniciaAtendimento(Painel_Senha $atendimento){
 

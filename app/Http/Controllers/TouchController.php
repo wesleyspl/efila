@@ -36,7 +36,7 @@ class TouchController extends Controller
         $data=[
             "titulo"=>$this->titulo,
             'subtitulo'=>$this->subtilulo,
-            'painel'=>Touch::paginate(10)
+            'painel'=>Touch::where('status','=','ativo')->paginate(10)
          ];
         return view('touch.list',$data);
 
@@ -83,7 +83,14 @@ class TouchController extends Controller
      */
     public function show(Touch $touch)
     {
-        //
+        $meus_servicos=Touch_Servico::with('servico')->where('touch_id','=',$touch->id_touch)->get();
+        $data=[
+            "titulo"=>$this->titulo,
+            'subtitulo'=>$this->subtilulo,
+            'painel'=>$touch,
+            'meus_servicos'=>$meus_servicos
+        ];
+        return view('touch.touch',$data);
     }
 
     /**
@@ -167,5 +174,16 @@ class TouchController extends Controller
          echo "Erro: " . $th->getMessage();
      }
  }
+
+ public function desativarPainel(Touch $touch){
+
+    $touch->update(['status'=>'inativo']);
+    return redirect()->route('touch')->with('success','Painel Touch desativado!');
+
+
+}
+
+
+
 
 }

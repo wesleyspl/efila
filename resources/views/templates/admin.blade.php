@@ -139,8 +139,10 @@
         <div class="topbar">
             <div class="topbar-left">
                 <div class="logo">
-                    
-                </div>
+                    <h1>
+                <a href="#"><img  class="logo" src="assets/img/logo.png" style="width: 123px; height: 50px;" alt="Logo"></a>
+                    </h1>   
+            </div>
                 <button class="button-menu-mobile open-left">
                     <i class="fa fa-bars"></i>
                 </button>
@@ -151,64 +153,11 @@
                     <div class="navbar-collapse2">
 
                         <ul class="nav navbar-nav navbar-right top-navbar">
-                            <li class="dropdown iconify hide-phone">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-globe"></i><span class="label label-danger absolute">4</span></a>
-                                <ul class="dropdown-menu dropdown-message">
-                                    <li class="dropdown-header notif-header"><i class="icon-bell-2"></i> New Notifications<a class="pull-right" href="#"><i class="fa fa-cog"></i></a></li>
-                                    <li class="unread">
-                                        <a href="#">
-                                            <p><strong>John Doe</strong> Uploaded a photo <strong>"DSC000254.jpg"</strong>
-                                                <br><i>2 minutes ago</i>
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="unread">
-                                        <a href="#">
-                                            <p><strong>John Doe</strong> Created an photo album <strong>"Fappening"</strong>
-                                                <br><i>8 minutes ago</i>
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <p><strong>John Malkovich</strong> Added 3 products
-                                                <br><i>3 hours ago</i>
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <p><strong>Sonata Arctica</strong> Send you a message <strong>"Lorem ipsum dolor..."</strong>
-                                                <br><i>12 hours ago</i>
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <p><strong>Johnny Depp</strong> Updated his avatar
-                                                <br><i>Yesterday</i>
-                                            </p>
-                                        </a>
-                                    </li>
-                                    <li class="dropdown-footer">
-                                        <div class="btn-group btn-group-justified">
-                                            <div class="btn-group">
-                                                <a href="#" class="btn btn-sm btn-primary"><i class="icon-ccw-1"></i> Refresh</a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a href="#" class="btn btn-sm btn-danger"><i class="icon-trash-3"></i> Clear All</a>
-                                            </div>
-                                            <div class="btn-group">
-                                                <a href="#" class="btn btn-sm btn-success">See All <i class="icon-right-open-2"></i></a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
+                           
                             <li class="dropdown iconify hide-phone">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="label label-danger absolute">3</span></a>
                                 <ul class="dropdown-menu dropdown-message">
-                                    <li class="dropdown-header notif-header"><i class="icon-mail-2"></i> New Messages</li>
+                                    <li class="dropdown-header notif-header"><i class="icon-mail-2"></i> Avisos</li>
                                     <li class="unread">
                                         <a href="#" class="clearfix">
                                             <img src="images/users/chat/2.jpg" class="xs-avatar ava-dropdown" alt="Avatar">
@@ -239,13 +188,13 @@
                             <li class="dropdown topbar-profile">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="rounded-image topbar-profile-image"><img src="assets/img/users/user-35.jpg"></span> Jane <strong>Doe</strong> <i class="fa fa-caret-down"></i></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">My Profile</a></li>
-                                    <li><a href="#">Change Password</a></li>
-                                    <li><a href="#">Account Setting</a></li>
+                                    <li><a href="#">Meus dados</a></li>
+                                    <li><a href="#">Mudar Senha</a></li>
+                                    <li><a href="#">Configurar</a></li>
                                     <li class="divider"></li>
                                     <li><a href="#"><i class="icon-help-2"></i> Help</a></li>
-                                    <li><a href="lockscreen.html"><i class="icon-lock-1"></i> Lock me</a></li>
-                                    <li><a class="md-trigger" data-modal="logout-modal"><i class="icon-logout-1"></i> Logout</a></li>
+
+                                    <li><a class="md-trigger" href="{{route('logout')}}"><i class="icon-logout-1"></i> Sair</a></li>
                                 </ul>
                             </li>
                             <li class="right-opener">
@@ -282,12 +231,13 @@
                                 </ul>
                             </li>
                         -->
+                        <!--
                             <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Prioridades *não funcional</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                                 <ul style="">
                                     <li ><a href="{{route('prioridade')}}"><span>Listar</span></a></li>
                                     <li><a href="{{route('prioridade.create')}}"><span>Novo</span></a></li>
                                 </ul>
-                            </li>
+                            </li>  -->
                             <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Paineis</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
                                 <ul style="">
                                     <li ><a href="{{route('painel')}}"><span>Painel de Senha</span></a></li>
