@@ -18,6 +18,8 @@ Ainda estamos em uma versão bem embrionária, porem os processos principais já
 Apache com php 8.1 e um banco de dados podendo ser mysql ou algum outro banco relacional.
 <p>Tela de Chamada de senhas padrão</p>
 <p align="center"><a href="https://cerrdoclound.com.br" target="_blank"><img src="https://cerradoclound.com.br/public/uploads/slider-1.png" width="800" height="400" alt="cerrado cloud"></a></p>
+<p>Tela Touch /p>
+<p align="center"><a href="https://cerrdoclound.com.br" target="_blank"><img src="https://cerradoclound.com.br/public/uploads/file-6.png" width="800" height="400" alt="cerrado cloud"></a></p>
 
 
 
