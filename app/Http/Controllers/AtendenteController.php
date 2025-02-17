@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class AtendenteController extends Controller
@@ -204,8 +205,11 @@ class AtendenteController extends Controller
      //  dd($minhaFila);
        $minhaFila['local']=$local_nome;
        $minhaFila['numero']=$local_numero;
+     
        }
-
+   
+       $minhaFila['senha'] = Session::get('senha');
+       $minhaFila['type'] = Session::get('type');
        if($user_atend==null){
          echo 'VOCE NÃO TEM SERVICOS ATIVOS, PROCURE  O ADMINISTRADOR DO SISTEMA.';
 

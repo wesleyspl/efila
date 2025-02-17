@@ -6,6 +6,7 @@ namespace App\Helpers;
 use App\Models\Fila;
 use App\Models\Ordenacao;
 use App\Models\Painel_Senha;
+use Illuminate\Support\Facades\Session;
 
 class QueueHelper
 {
@@ -33,6 +34,9 @@ class QueueHelper
 
         $fila->delete();
         $atendimento = Painel_Senha::create($dados);
+        // Salva o usuário na sessão
+        Session::put('type','chamando');
+       Session::put('senha',$fila->sigla . '' . $fila->numero);        
         return response()->json(['senha' => $atendimento->sigla . '' . $atendimento->numero, 'id_atendimento' => $atendimento->id_painel], 201);
     }
 
@@ -47,7 +51,7 @@ class QueueHelper
         }
 
         if (($counters['nor_cont'] != $counters['nor_total']) and ($preferenciais[0]->peso != 0) and ($counters['prio_cont'] == $counters['prio_total']) ) {
-             echo 'ta cheio e ainda tenho preferenciais';
+            // echo 'ta cheio e ainda tenho preferenciais';
              $ord->update(['prio_cont' => $counters['prio_cont'] + 1]);
            return self::createAtendimento($preferenciais[0], $local_nome, $local_numero);
 
@@ -55,7 +59,7 @@ class QueueHelper
         }
     
         if (($counters['nor_cont'] != $counters['nor_total']) and ($preferenciais[0]->peso != 0) and ($counters['prio_cont'] == $counters['prio_total']) and $normais[0]->peso == 0 ) {
-            echo 'ta cheio e ainda tenho preferenciais';
+          //  echo 'ta cheio e ainda tenho preferenciais';
             $ord->update(['prio_cont' => $counters['prio_cont'] + 1]);
           return self::createAtendimento($preferenciais[0], $local_nome, $local_numero);
 
@@ -84,7 +88,7 @@ class QueueHelper
 
        
         if (($counters['nor_cont'] == $counters['nor_total']) and ($normais[0]->peso == 0) ) {
-             echo 'ta cheio e ainda tenho normais';
+           //  echo 'ta cheio e ainda tenho normais';
              $ord->update(['nor_cont' => $counters['nor_cont'] - 1]);
             // $ord->update(['prio_cont' => $counters['prio_cont'] + 1]);
             return self::createAtendimento($normais[0], $local_nome, $local_numero);
