@@ -26,7 +26,7 @@ class TriagemController extends Controller
 
     {
         $this->titulo = 'Triagem';
-        $this->subtilulo = 'Configurar atendimentos';
+        $this->subtilulo = 'Atribuir serviços aos atendentes';
     }
     public function index()
     {

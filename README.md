@@ -8,7 +8,6 @@
 ![stars](https://img.shields.io/github/stars/wesleyspl/efila)
 ![forks](https://img.shields.io/github/forks/wesleyspl/efila)![Laravel](https://img.shields.io/badge/Laravel-11-red?style=flat-square)  ![PHP](https://img.shields.io/badge/PHP-8.3-blue?style=flat-square)  ![MariaDB](https://img.shields.io/badge/MariaDB-10-green?style=flat-square)  ![contributors](https://img.shields.io/github/contributors/wesleyspl/efila)
 
-
 ## 📌 Sobre o Projeto
 
 O **eFila** é um sistema para gerenciamento de filas de atendimento por meio de senhas. Ele permite a emissão e o controle de **senhas normais** e **senhas preferenciais**, garantindo um atendimento mais eficiente e organizado.
@@ -69,6 +68,5 @@ Sinta-se à vontade para contribuir! Para isso:
 Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
-
 
 

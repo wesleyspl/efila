@@ -182,7 +182,7 @@ function speak(senhaAtual) {
                 $('#senha-atual').html(
                     `${response.senha.sigla}-${response.senha.numero}<br>
                     ${response.senha.nome_local}: ${response.senha.numero_local}<br>
-                    ${response.senha.peso == '1' ? '<strong class="prior">Prioritária</strong>' : ''}
+                    
                     `
                 );
                 if(response.senha.status=='chamar'){

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AtendenteController;
 use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LocalController;
 use App\Http\Controllers\PainelController;
 use App\Http\Controllers\PrioridadeController;
@@ -10,18 +11,21 @@ use App\Http\Controllers\SenhaController;
 use App\Http\Controllers\Servico_Prioridade;
 use App\Http\Controllers\Servico_PrioridadeController;
 use App\Http\Controllers\ServicoController;
+use App\Http\Controllers\TouchController;
 use App\Http\Controllers\TriagemController;
 use App\Models\Departamento;
 use Illuminate\Support\Facades\Route;
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/touch.show/{touch}',[TouchController::class,'show'])->name('touch.show');
+Route::get('/senha.emitir/{id_servico}/{prioridade}', [SenhaController::class, 'emitir'])->name('senha.emitir');
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/', [HomeController::class, 'index'])->name('/');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -86,12 +90,23 @@ Route::put('/triagem.store/{atendente}',[TriagemController::class,'store'])->nam
 Route::get('/triagem.show/{atendente}',[TriagemController::class,'show'])->name('triagem.show');
 Route::get('/triagem/{id_servico}/{id_atendente}', [TriagemController::class, 'destroy'])->name('triagem.destroy');
 Route::get('/triagem.destivaServico/{id_servico}/{id_atendente}', [TriagemController::class, 'destivaServico'])->name('triagem.destivaServico');
-Route::get('/touch',[TriagemController::class,'touch'])->name('touch');
+
+
+## ---->    ROTAS PRA PAINELTOUCH 
+Route::get('/touch',[TouchController::class,'index'])->name('touch');
+Route::get('/touch.create',[TouchController::class,'create'])->name('touch.create');
+Route::put('/touch.store',[TouchController::class,'store'])->name('touch.store');
+Route::get('/touch.config/{touch}',[TouchController::class,'config'])->name('touch.config');
+Route::put('/touch.save',[TouchController::class,'save'])->name('touch.save');
+Route::get('/touch.destivaServico/{id_touch}/{id}',[TouchController::class,'destivaServico'])->name('touch.destivaServico');
+Route::get('/touch.desativarPainel/{touch}',[TouchController::class,'desativarPainel'])->name('touch.desativarPainel');
+  
+
+
 #######----->ROTAS  PARA SENHAS
 
 Route::get('/senha', [SenhaController::class, 'index'])->name('senha');
 //Route::get('/senha.triagem/{id_departamento}/{departamento}', [SenhaController::class, 'triagem'])->name('senha.triagem');
-Route::get('/senha.emitir/{id_servico}/{prioridade}', [SenhaController::class, 'emitir'])->name('senha.emitir');
 
 
 

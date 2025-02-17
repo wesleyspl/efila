@@ -22,7 +22,7 @@
 
                 <div class="col-md-12">
                     <div class="toolbar-btn-action">
-                        <a href="{{route('painel.create')}}" class="btn btn-success"><i class="fa fa-plus-circle"></i> Novo</a>
+                        <a href="{{route('touch.create')}}" class="btn btn-success"><i class="fa fa-plus-circle"></i> Novo</a>
 
                     </div>
                 </div>
@@ -46,13 +46,13 @@
                  @if ($painel)
                  @foreach ($painel as $paineis)
                  <tr>
-                  <td>{{$paineis->id_painel}}</td>
+                  <td>{{$paineis->id_touch}}</td>
                   <td>{{$paineis->nome}}</td>
                   <td>{{$paineis->obs}}</td>
                   <td>
-                    <a class="btn btn-info"  target="_blank"  href="{{ route('painel.show',$paineis->id_painel) }}"><i class="fa fa-eye"></i> Abrir painel</a>
-                    <a class="btn btn-danger"  href="{{ route('painel.desativarPainel',$paineis->id_painel) }}"><i class="fa fa-trash-o"></i> Deletar</a>
-                    <a class="btn btn-primary" href="{{ route('painel.config',$paineis->id_painel) }}"><i class="fa fa-gear"></i> Configurar</a>
+                    <a class="btn btn-info"  target="_blank"  href="{{ route('touch.show',$paineis->id_touch) }}"><i class="fa fa-eye"></i> Abrir painel</a>
+                    <a class="btn btn-danger"  href="{{ route('touch.desativarPainel',$paineis->id_touch) }}"><i class="fa fa-trash-o"></i> Deletar</a>
+                    <a class="btn btn-primary" href="{{ route('touch.config',$paineis->id_touch) }}"><i class="fa fa-gear"></i> Configurar</a>
 
             </td>
 
