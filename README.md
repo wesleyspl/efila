@@ -23,7 +23,7 @@ O **eFila** é um sistema para gerenciamento de filas de atendimento por meio de
 
 1. Clone o repositório:
    ```sh
-   git clone https://github.com/seu-usuario/efila.git
+   git clone https://github.com/wesleyspl/efila.git
    cd efila
    ```
 
