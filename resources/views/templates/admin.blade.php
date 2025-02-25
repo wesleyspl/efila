@@ -119,19 +119,7 @@
         </div>
     </div>
 
-    <!-- Modal Logout -->
-    <div class="md-modal md-just-me" id="logout-modal">
-        <div class="md-content">
-            <h3><strong>Logout</strong> Confirmation</h3>
-            <div>
-                <p class="text-center">Are you sure want to logout from this awesome system?</p>
-                <p class="text-center">
-                    <button class="btn btn-danger md-close">Nope!</button>
-                    <a href="login.html" class="btn btn-success md-close">Yeah, I'm sure</a>
-                </p>
-            </div>
-        </div>
-    </div> <!-- Modal End -->
+
     <!-- Begin page -->
     <div id="wrapper" class="">
 
@@ -208,81 +196,7 @@
         </div>
         <!-- Top Bar End -->
         <!-- Left Sidebar Start -->
-        <div class="left side-menu">
-            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 732px;">
-                <div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 732px;">
-                   
-                  
-                    <div class="clearfix"></div>
-                    <!--- Profile -->
-
-                    <!--- Divider -->
-                    <div class="clearfix"></div>
-                    <hr class="divider">
-                    <div class="clearfix"></div>
-                    <!--- Divider -->
-                    <div id="sidebar-menu">
-                        <ul class="active">
-                            <!-- eliminado departamento dessa versao
-                            <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Departamentos</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                                <ul style="">
-                                    <li ><a href="{{route('departamento')}}"><span>Listar</span></a></li>
-                                    <li><a href="{{route('departamento.create')}}"><span>Novo</span></a></li>
-                                </ul>
-                            </li>
-                        -->
-                        <!--
-                            <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Prioridades *não funcional</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                                <ul style="">
-                                    <li ><a href="{{route('prioridade')}}"><span>Listar</span></a></li>
-                                    <li><a href="{{route('prioridade.create')}}"><span>Novo</span></a></li>
-                                </ul>
-                            </li>  -->
-                            <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Paineis</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                                <ul style="">
-                                    <li ><a href="{{route('painel')}}"><span>Painel de Senha</span></a></li>
-                                    <li><a href="{{route('touch')}}"><span>Painel Touch</span></a></li>
-                                </ul>
-                            </li>
-                            <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Triagem</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                                <ul style="">
-                                    <li ><a href="{{route('triagem')}}"><span>Configurar</span></a></li>
-                                    <li ><a href="{{route('senha')}}"><span>Tirar Senha</span></a></li>
-
-                                </ul>
-                            </li>
-
-                            <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Locais</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                                <ul style="">
-                                    <li ><a href="{{route('local')}}"><span>Listar</span></a></li>
-                                    <li><a href="{{route('local.create')}}"><span>Novo</span></a></li>
-                                </ul>
-                            </li>
-                            <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Atendentes</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                                <ul style="">
-                                    <li ><a href="{{route('atendente')}}"><span>Listar</span></a></li>
-                                    <li><a href="{{route('atendente.create')}}"><span>Novo</span></a></li>
-                                </ul>
-                            </li>
-                            <li class=" active has_sub"><a href="javascript:void(0);"><i class="icon-home-3"></i><span>Serviços</span> <span class="pull-right"><i class="fa fa-angle-down"></i></span></a>
-                                <ul style="">
-                                    <li ><a href="{{route('servicos')}}"><span>Listar</span></a></li>
-                                    <li><a href="{{route('servicos.create')}}"><span>Novo</span></a></li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="clearfix"></div>
-
-                    <div class="clearfix"></div><br><br><br>
-                </div>
-                <div class="slimScrollBar" style="background: rgb(122, 134, 143); width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; left: 1px; height: 732px; visibility: visible;"></div>
-                <div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; left: 1px;"></div>
-            </div>
-
-        </div>
+      @include('templates.partitials.side-menu');
         <!-- Left Sidebar End --> <!-- Right Sidebar Start -->
 
         <!-- Right Sidebar End -->
