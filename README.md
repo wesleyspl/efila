@@ -16,9 +16,8 @@ O **eFila** é um sistema para gerenciamento de filas de atendimento por meio de
 
 - **Linguagem:** PHP 8.3  
 - **Framework:** Laravel 11  
-- **Banco de Dados:** MariaDB 10  
-- **Frontend:** (especificar caso tenha)  
-- **Outras Tecnologias:** (caso utilize outras bibliotecas ou serviços)
+- **Banco de Dados:** MariaDB 10   
+
 
 ## 📦 Instalação
 
@@ -32,12 +31,15 @@ O **eFila** é um sistema para gerenciamento de filas de atendimento por meio de
    ```sh
    composer install
    ```
-3.Crie uma base de dados e importe o arquivo:
+3. Crie uma base de dados e importe o arquivo:
     ```sh
    app/SQL/base.sql
    ```
-4.Edite sua conexão no arquivo .env
-
+4. Edite sua conexão no arquivo:
+```sh
+ .env
+edit  sua conexao
+```
 
 
 ## 🎯 Funcionalidades

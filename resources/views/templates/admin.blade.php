@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{{$titulo}}</title>
+    <title>{{config('admin.title')}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="description" content="">
@@ -141,7 +141,7 @@
                 <div class="logo">
                     <h1>
                 <a href="#"><img  class="logo" src="assets/img/logo.png" style="width: 123px; height: 50px;" alt="Logo"></a>
-                    </h1>   
+                    </h1>     
             </div>
                 <button class="button-menu-mobile open-left">
                     <i class="fa fa-bars"></i>

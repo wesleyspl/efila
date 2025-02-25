@@ -22,16 +22,22 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
+   /*
+      modificado login para redicionar para a rota de atendentecx    
+   */
+
+
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
 
         $request->session()->regenerate();
         $user = Auth::user();
+      //  dd($user->perfil_id);
         if($user->perfil_id==1){
-        return redirect()->intended(route('atendente.painel', absolute: false));
+            return redirect()->route('atendente.painel');
         }else{
-            return redirect()->intended(route('dashboard', absolute: false));
+            return redirect()->intended(route('/', absolute: false));
 
         }
     }

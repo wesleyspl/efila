@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AtendenteController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LiveController;
 use App\Http\Controllers\LocalController;
 use App\Http\Controllers\PainelController;
 use App\Http\Controllers\PrioridadeController;
@@ -16,7 +17,7 @@ use App\Http\Controllers\TriagemController;
 use App\Models\Departamento;
 use Illuminate\Support\Facades\Route;
 
-
+Route::get('livewire',[LiveController::class,'index'])->name('livewire');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -210,6 +210,8 @@ class AtendenteController extends Controller
    
        $minhaFila['senha'] = Session::get('senha');
        $minhaFila['type'] = Session::get('type');
+       $minhaFila['id_atendimento'] = Session::get('id_atendimento');
+      // dd($minhaFila);
        if($user_atend==null){
          echo 'VOCE NÃO TEM SERVICOS ATIVOS, PROCURE  O ADMINISTRADOR DO SISTEMA.';
 
@@ -258,56 +260,22 @@ class AtendenteController extends Controller
  #      SE NÃO TIVER CHAMA NORMAL ATE QTD TOTAL=5
  #      NORMAL E PRORITARIAS IGUAIS  LIMITE RESETA AS DUAS
 ###    CRIAR UM HELPER PARA  ESSA FUNÇÃO FICOU MUITO COMPLEXA
+
+ ### MODIFICADO PRA LEVAR PARA O HELPER ### 23/02/2025
     public function chamarProximo()
     {
 
-         // Obtém o usuário autenticado
-         $user = Auth::user();
         
-         // Busca o atendente vinculado ao usuário
-         $atendente = Atendente::where('pessoa_id', $user->pessoa_id)->first();
-        
-         if (!$atendente) {
-             return response()->json(['fila' => []]); // Retorna fila vazia se não houver atendente
-         }
+    $dados=QueueHelper::header(); 
 
-         // Obtém os serviços associados ao atendente
-         $servicos = Atendente_Servico::with('servicos')
-             ->where('atendente_id', $atendente->id_atendente)
-             ->get();
-          
-         // Extrai os IDs dos serviços
-         $ids_servicos = $servicos->pluck('servicos.*.id_servico')->flatten()->toArray();
-          
-         if (empty($ids_servicos)) {
-             return response()->json(['fila' => []]); // Retorna fila vazia se não houver serviços
-         }
+    $preferenciais=$dados['preferenciais'];
+    $normais=$dados['normais'];
+    $ord=$dados['ord'];
+    $local_nome=$dados['local_nome'];
+    $local_numero=$dados['local_numero'];
 
-         // Busca todos os serviços asociados ao usuario
-         $preferenciais = Fila::whereIn('servico_id', $ids_servicos)
-         ->where('peso','=','1')
-         ->get();
-          
-         $normais = Fila::whereIn('servico_id', $ids_servicos)
-         ->where('peso','=','0')
-         ->get();
-
-         $ord=Ordenacao::whereIn('servico_id', $ids_servicos)->get();
-         
-         $local=Atendente_Local::with('local')->where('atendente_id',$atendente->id_atendente)->get();
-
-        //dados da senha p/ salvar na tabela atendimeto
-       //  dd($local[0]['local'][0]->nome);
-        $local_nome=$local[0]['local'][0]['nome'];
-         $local_numero=$local[0]->numero;
-
-           #achei o bug tem que pegar a ordenação do serviço em si.
-          /*
-            */
-
-
- // Handle priority tickets
- if ($preferenciais->isNotEmpty()) {
+ 
+ if ($preferenciais->isNotEmpty() ) {
     return QueueHelper::handlePriorityTickets($preferenciais,$normais, $local_nome, $local_numero);
 } else {
     return QueueHelper::handleNormalTickets($normais,$preferenciais, $local_nome, $local_numero);
@@ -322,7 +290,7 @@ class AtendenteController extends Controller
       //  dd($atendimento);
         $atendimento->update(['status'=>'atendendo']);
 
-
+        Session::put('type','atendendo');
         $dados=[
            // "painel_id"=>$atendimento->id_painel,
             "sigla" =>$atendimento->sigla,
@@ -361,7 +329,9 @@ class AtendenteController extends Controller
         /* return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,
                                    'id'=>$atendimento->id_atendimento], 201);//finaliza a função
               */
-
+         // Deletar as variáveis da sessão
+session()->forget('senha');
+session()->forget('type');
               return 1;
   }
 
@@ -375,6 +345,10 @@ class AtendenteController extends Controller
         /* return response()->json(['senha'=>$atendimento->sigla.''.$atendimento->numero,
                                    'id'=>$atendimento->id_atendimento], 201);//finaliza a função
               */
+
+              // Deletar as variáveis da sessão
+session()->forget('senha');
+session()->forget('type');
               return 1;
 
    }

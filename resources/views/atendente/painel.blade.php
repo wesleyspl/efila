@@ -282,7 +282,17 @@
 
         </div>
         <div id="painel-chamada" class="widget-content padding">
-            <p style="font-size: 30px"><marquee>livre</marquee></p>
+           @switch($type)
+               @case('chamando')
+               <p style="font-size: 30px">Chamando: {{$senha}}</p>   
+                   @break
+               @case('atendendo')
+               <p style="font-size: 30px">Atendendo: {{$senha}}</p> 
+               @break
+               @default
+               <p style="font-size: 30px"><marquee>livre</marquee></p>     
+           @endswitch
+           
 
         </div>
     </div>
@@ -299,19 +309,42 @@
     </div>
     <div class="widget-content padding">
         <div >
-        <a onclick="chamarProximo()" id="btn_chamar" class="btn btn-warning btn-lg d-flex align-items-center justify-content-center gap-2">
-            <span class="glyphicon glyphicon-bullhorn"></span> Chamar Próximo </a>
-
-            <button style="display:none;" id="btn_inicia" onclick="iniciaAtendimento('thisresponse.senha+')" class="btn btn-info btn-lg d-flex align-items-center justify-content-center gap-2">
-                <span class="glyphicon glyphicon-play"></span> Iniciar Atendimento
-            </button>
-            <button style="display:none;" id="btn_ninguem" onclick="naoCompareceu('thisresponse.senha+')" class="btn btn-red-1 btn-lg d-flex align-items-center justify-content-center gap-2">
-                <span class="glyphicon glyphicon-remove"></span> Não Compareceu
-            </button>
-            <button style="display:none;" id="btn_encerrar" onclick="encerraAtendimento('thisresponse.senha+')" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2">
-                <span class="glyphicon glyphicon-remove"></span> Finaliza atendimento
-            </button>
-        </button>
+            @switch($type)
+                @case('chamando')
+                <a onclick="chamarProximo()" style="display:none;"  id="btn_chamar" class="btn btn-warning btn-lg d-flex align-items-center justify-content-center gap-2">
+                    <span class="glyphicon glyphicon-bullhorn"></span> Chamar Próximo </a>    
+                    <button  id="btn_inicia"  onclick="iniciaAtendimento('{{$id_atendimento}}')" class="btn btn-info btn-lg d-flex align-items-center justify-content-center gap-2">
+                        <span class="glyphicon glyphicon-play"></span> Iniciar Atendimento
+                    </button>
+                    <button  id="btn_ninguem" onclick="naoCompareceu('{{$id_atendimento}}')" class="btn btn-red-1 btn-lg d-flex align-items-center justify-content-center gap-2">
+                        <span class="glyphicon glyphicon-remove"></span> Não Compareceu
+                    </button>
+                    @break
+                @case('atendendo')
+                <button  id="btn_inicia" style="display:none;" onclick="iniciaAtendimento('{{$id_atendimento}}')" class="btn btn-info btn-lg d-flex align-items-center justify-content-center gap-2">
+                    <span class="glyphicon glyphicon-play"></span> Iniciar Atendimento
+                </button>
+                <button  id="btn_encerrar"  onclick="encerraAtendimento('thisresponse.senha+')" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2">
+                    <span class="glyphicon glyphicon-remove"></span> Finaliza atendimento
+                </button>
+                    @break
+                @default
+                
+            @endswitch
+            @if ($type <> 'chamando' && $type <> 'atendendo')
+            <a onclick="chamarProximo()"   id="btn_chamar" class="btn btn-warning btn-lg d-flex align-items-center justify-content-center gap-2">
+                <span class="glyphicon glyphicon-bullhorn"></span> Chamar Próximo </a>  
+                <button  id="btn_inicia" style="display:none;" onclick="iniciaAtendimento('{{$id_atendimento}}')" class="btn btn-info btn-lg d-flex align-items-center justify-content-center gap-2">
+                    <span class="glyphicon glyphicon-play"></span> Iniciar Atendimento
+                </button>  
+                   <button  id="btn_ninguem" style="display:none;" onclick="naoCompareceu('{{$id_atendimento}}')" class="btn btn-red-1 btn-lg d-flex align-items-center justify-content-center gap-2">
+                    <span class="glyphicon glyphicon-remove"></span> Não Compareceu
+                </button>
+                <button  id="btn_encerrar"   style="display:none;" onclick="encerraAtendimento('thisresponse.senha+')" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center gap-2">
+                    <span class="glyphicon glyphicon-remove"></span> Finaliza atendimento
+                </button>
+            @endif
+       
 
 
         </div>
@@ -344,7 +377,7 @@
     <footer>
         Cerrado Cloud © 2024
         <div class="footer-links pull-right">
-            <a href="#">About</a><a href="https://cerradoclound.com.br">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
+            <a href="https://github.com/wesleyspl/efila" target="_blank">About</a><a href="https://cerradoclound.com.br">Support</a>
         </div>
     </footer>
     <!-- Footer End -->

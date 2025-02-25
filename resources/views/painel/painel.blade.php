@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    @livewireStyles
     <title>Painel de Senha</title>
     <style>
         body {
@@ -109,11 +109,14 @@ img {
     </style>
 </head>
 <body>
-
+    <livewire:painel /> 
     <div class="header">
       Efila
     </div>
+   
+  
 
+    @livewireScripts
     <div class="container">
         <!-- Área central (senha atual) -->
 
@@ -274,6 +277,6 @@ setInterval(naoCompareceu, 10000);
 	<!-- Demo Specific JS Libraries -->
 	<script src="http://efila.test/assets/libs/prettify/prettify.js"></script>
 
-
+  
 </body>
 </html>
