@@ -11,7 +11,7 @@
                 <ul class="active">
                     @foreach(config('admin.menu') as $menu)
                         <li class="active has_sub">
-                            <a href="{{$menu['url']}}">
+                            <a href="{{ url($menu['url']) }}">
                                 <i class="fa {{ $menu['icon'] }}"></i>
                                 <span>{{ $menu['title'] }}</span>
                                 @if(isset($menu['sub_menu']))

@@ -8,7 +8,7 @@ return [
         [
             'title' => 'Inicio',
             'icon' => 'icon-home-3',
-            'url' => '#',
+            'url' => '/',
             'active' => ['home*'],
             'sub_menu' => [
                 [
