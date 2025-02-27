@@ -3,19 +3,27 @@
 return [
 
 
-
+#### menu do side-bar do sistema 
     'menu' => [
         [
-            'title' => 'Home',
-            'icon' => 'fa-dashboard',
-            'url' => '/',
+            'title' => 'Inicio',
+            'icon' => 'icon-home-3',
+            'url' => '#',
             'active' => ['home*'],
+            'sub_menu' => [
+                [
+                    'title' => 'Dashboard',
+                    'url' => '/',
+                    'active' => ['/*'],
+                ],
+                
+            ],
          
         ],
         
         [
             'title' => 'Paineis',
-            'icon' => 'fa-dashboard',
+            'icon' => 'icon-window',
             'url' => '#',
             'active' => ['admin/dashboard*'],
             'sub_menu' => [
@@ -31,29 +39,36 @@ return [
                 ],
             ],
         ],
-        // Adicione mais itens de menu conforme necessário
+       
         [
-            'title' => 'Triagem',
-            'icon' => 'fa-dashboard',
+            'title' => 'Cadastros',
+            'icon' => 'icon-folder-3',
             'url' => '#',
-            'active' => ['local*'],
+            'active' => ['admin/dashboard*'],
             'sub_menu' => [
-                [
-                    'title' => 'Atendente',
-                    'url' => 'atendente',
-                    'active' => ['touch*'],
-                ],
                 [
                     'title' => 'Serviços',
                     'url' => 'servico',
-                    'active' => ['touch*'],
+                    'active' => ['painel*'],
                 ],
                 [
                     'title' => 'local',
                     'url' => 'local',
                     'active' => ['local*'],
                 ],
-               
+                [
+                    'title' => 'Atendente',
+                    'url' => 'atendente',
+                    'active' => ['touch*'],
+                ],
+            ],
+        ],
+        [
+            'title' => 'Triagem',
+            'icon' => 'icon-clipboard-1',
+            'url' => '#',
+            'active' => ['local*'],
+            'sub_menu' => [
                 [
                     'title' => 'Configurar',
                     'url' => 'triagem',

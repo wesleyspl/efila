@@ -40,7 +40,12 @@ O **eFila** é um sistema para gerenciamento de filas de atendimento por meio de
  .env
 edit  sua conexao
 ```
-
+5. Credenciais do sistema:
+```sh
+  
+  usuario:admin@admin.com
+  senha:123456
+```
 
 ## 🎯 Funcionalidades
 
@@ -53,10 +58,12 @@ edit  sua conexao
 
 - Implementação de autenticação de usuários  
 - Dashboard com estatísticas de atendimento  
+- Sistema se em desenvolvimento !!!!!!!
 
 
 ## 🤝 Contribuição
-
+Junte-se ao forum.
+https://forum.cerradoclound.com.br 
 Sinta-se à vontade para contribuir! Para isso:  
 
 1. Faça um **fork** do projeto  

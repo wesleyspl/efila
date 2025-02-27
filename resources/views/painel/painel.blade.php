@@ -109,7 +109,6 @@ img {
     </style>
 </head>
 <body>
-    <livewire:painel /> 
     <div class="header">
       Efila
     </div>
