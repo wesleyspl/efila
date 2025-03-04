@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\QueueHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Contracts\Queue\Queue;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Session\Session as SessionSession;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -33,7 +37,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
         $user = Auth::user();
-      //  dd($user->perfil_id);
+        $pessoa=QueueHelper::UserLogin($user->pessoa_id);
+       // dd($pessoa);
+         // Salvar o array $pessoa na sessão
+         $request->session()->put('pessoa', $pessoa);
         if($user->perfil_id==1){
             return redirect()->route('atendente.painel');
         }else{

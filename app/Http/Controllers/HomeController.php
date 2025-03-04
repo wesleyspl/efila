@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Home;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session as FacadesSession;
 
 class HomeController extends Controller
 {   
@@ -27,9 +29,12 @@ class HomeController extends Controller
      public function index()
      {
         
- 
- 
- 
+    
+        // Acessando a sessão corretamente
+        $sessionData = FacadesSession::all();
+       // dd($sessionData);
+      //  dd($session);
+       
          $data=[
              "titulo"=>$this->titulo,
              'subtitulo'=>$this->subtilulo

@@ -230,7 +230,7 @@
 
                             <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
                             <li class="dropdown topbar-profile">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="rounded-image topbar-profile-image"><img src="assets/img/users/user-35.jpg"></span> {{ Auth::user()->name }}  <i class="fa fa-caret-down"></i></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="rounded-image topbar-profile-image"><img src="{{('assets/img/users/user-35.jpg')}}"></span> {{ Auth::user()->name }}  <i class="fa fa-caret-down"></i></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">My Profile</a></li>
                                     <li><a href="#">Change Password</a></li>

@@ -8,6 +8,7 @@ use App\Models\Atendente_Servico;
 use App\Models\Fila;
 use App\Models\Ordenacao;
 use App\Models\Painel_Senha;
+use App\Models\Pessoa;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -205,4 +206,12 @@ public static function header(){
 
         return null;
     }
+
+    public static function UserLogin($id_pessoa):object{
+         
+          $user=Pessoa::find($id_pessoa);
+          return $user;
+
+    }
+
 }
