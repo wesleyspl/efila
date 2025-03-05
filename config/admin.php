@@ -2,7 +2,7 @@
 
 return [
 
-
+  'title'=>'Efila | ',
 #### menu do side-bar do sistema 
     'menu' => [
         [
