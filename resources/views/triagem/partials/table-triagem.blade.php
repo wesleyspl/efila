@@ -40,9 +40,9 @@
 
               <td>
 
-                <a class="btn btn-primary" href="{{ route('triagem.show',$atendentes->id_atendente) }}"><i class="fa fa-eye"></i> Visualizar</a>
+                <a class="btn btn-info"  title="visualizar" href="{{ route('triagem.show',$atendentes->id_atendente) }}"><i class="fa  fa-eye"></i> </a>
 
-                <a class="btn btn-primary" href="{{ route('triagem.config',$atendentes->id_atendente) }}"><i class="fa fa-refresh"></i> Config. Triagem</a>
+                <a class="btn btn-primary"  title="configurar " href="{{ route('triagem.config',$atendentes->id_atendente) }}"><i class="fa fa-gear"></i> </a>
 
         </td>
 

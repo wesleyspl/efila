@@ -38,7 +38,7 @@
               <td>
                 <a class="btn btn-primary" title="Configurar" href="{{route('servico.prioridade',$servico->id_servico)}}" ><i class="fa fa-gear"></i> </a>
                 <a class="btn btn-danger" title="Deletar" href="{{route('servico.delete',$servico->id_servico)}}" ><i class="fa fa-trash-o"></i> </a>
-                <a class="btn btn-info" title="editar" href="{{ route('servicos.edit',$servico->id_servico) }}"><i class="fa fa-edit"></i> </a>
+                <a class="btn btn-warning" title="editar" href="{{ route('servicos.edit',$servico->id_servico) }}"><i class="fa fa-edit"></i> </a>
 
         </td>
 

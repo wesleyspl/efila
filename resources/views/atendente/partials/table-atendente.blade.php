@@ -39,8 +39,8 @@
 
           <td>
 
-            <a class="btn btn-danger"  href="{{ route('atendente.delete',$atendentes->id_atendente) }}"><i class="fa fa-trash-o"></i> Deletar</a>
-            <a class="btn btn-primary" href="{{ route('atendente.edit',$atendentes->id_atendente) }}"><i class="fa fa-refresh"></i> Atualizar</a>
+            <a class="btn btn-danger"  title="deletar" href="{{ route('atendente.delete',$atendentes->id_atendente) }}"><i class="fa fa-trash-o"></i> </a>
+            <a class="btn btn-warning" title="editar" href="{{ route('atendente.edit',$atendentes->id_atendente) }}"><i class="fa fa-edit"></i> </a>
 
     </td>
 

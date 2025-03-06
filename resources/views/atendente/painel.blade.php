@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html><head>
     <meta charset="UTF-8">
     <title>Atendente</title>
@@ -39,33 +40,33 @@
         }
     </style>
    <!-- Base Css Files -->
-   <style>.file-input-wrapper { overflow: hidden; position: relative; cursor: pointer; z-index: 1; }.file-input-wrapper input[type=file], .file-input-wrapper input[type=file]:focus, .file-input-wrapper input[type=file]:hover { position: absolute; top: 0; left: 0; cursor: pointer; opacity: 0; filter: alpha(opacity=0); z-index: 99; outline: 0; }.file-input-name { margin-left: 8px; }</style><link href="http://efila.test/assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/fontello/css/fontello.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/animate-css/animate.min.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/nifty-modal/css/component.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/magnific-popup/magnific-popup.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/ios7-switch/ios7-switch.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/pace/pace.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/sortable/sortable-theme-bootstrap.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
-   <link href="http://efila.test/assets/libs/jquery-icheck/skins/all.css" rel="stylesheet">
+   <style>.file-input-wrapper { overflow: hidden; position: relative; cursor: pointer; z-index: 1; }.file-input-wrapper input[type=file], .file-input-wrapper input[type=file]:focus, .file-input-wrapper input[type=file]:hover { position: absolute; top: 0; left: 0; cursor: pointer; opacity: 0; filter: alpha(opacity=0); z-index: 99; outline: 0; }.file-input-name { margin-left: 8px; }</style><link href="{{ asset('assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/fontello/css/fontello.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/animate-css/animate.min.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/nifty-modal/css/component.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/magnific-popup/magnific-popup.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/ios7-switch/ios7-switch.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/pace/pace.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/sortable/sortable-theme-bootstrap.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/bootstrap-datepicker/css/datepicker.css')}}" rel="stylesheet">
+   <link href="{{ asset('assets/libs/jquery-icheck/skins/all.css')}}" rel="stylesheet">
    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
    <!-- Code Highlighter for Demo -->
-   <link href="http://efila.test/assets/libs/prettify/github.css" rel="stylesheet">
+   <link href="{{ asset('assets/libs/prettify/github.css')}}" rel="stylesheet">
 
            <!-- Extra CSS Libraries Start -->
-           <link href="http://efila.test/assets/css/style-atendente.css" rel="stylesheet" type="text/css">
+           <link href="{{ asset('assets/css/style-atendente.css')}}" rel="stylesheet" type="text/css">
            <!-- Extra CSS Libraries End -->
-   <link href="http://efila.test/assets/css/style-responsive.css" rel="stylesheet">
+   <link href="{{ asset('assets/css/style-responsive.css')}}" rel="stylesheet">
 
    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
    <!--[if lt IE 9]>
-   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')}}"></script>
-   <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')}}"></script>
+   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')}}""></script>
+   <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js')}}""></script>
    <![endif]-->
 
    <link rel="shortcut icon" href="assets/img/favicon.ico">
@@ -230,7 +231,7 @@
 
                             <li class="dropdown iconify hide-phone"><a href="#" onclick="javascript:toggle_fullscreen()"><i class="icon-resize-full-2"></i></a></li>
                             <li class="dropdown topbar-profile">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="rounded-image topbar-profile-image"><img src="{{('assets/img/users/user-35.jpg')}}"></span> {{ Auth::user()->name }}  <i class="fa fa-caret-down"></i></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="rounded-image topbar-profile-image"><img src="{{('assets/img/users/user-35.jpg')}}""></span> {{ Auth::user()->name }}  <i class="fa fa-caret-down"></i></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">My Profile</a></li>
                                     <li><a href="#">Change Password</a></li>
@@ -239,7 +240,7 @@
                                     <li><a href="#"><i class="icon-help-2"></i> Help</a></li>
                                     <li><a href="lockscreen.html"><i class="icon-lock-1"></i> Lock me</a></li>
 
-                                    <li><a class="md-trigger" href="{{route('logout')}}"  ><i class="icon-logout-1"></i> Logout</a></li>
+                                    <li><a class="md-trigger" href="{{route('logout')}}""  ><i class="icon-logout-1"></i> Logout</a></li>
                                 </ul>
                             </li>
                             <li class="right-opener">
@@ -409,7 +410,7 @@
       // Defina a função fora de $(document).ready() para torná-la globalmente acessível
 function atualizarFila() {
     $.ajax({
-        url: 'http://efila.test/atendente.atualizaFila', // Endpoint da sua API
+        url: '{{secure_url("atendente.atualizaFila")}}', // Endpoint da sua API
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {
@@ -436,7 +437,7 @@ function atualizarFila() {
 
 function chamarProximo() {
     $.ajax({
-        url: 'http://efila.test/atendente.chamar', // Endpoint da sua API
+        url: '{{secure_url("atendente.chamar")}}', // Endpoint da sua API
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {
@@ -460,7 +461,7 @@ function chamarProximo() {
 
 function iniciaAtendimento(id) {
     $.ajax({
-        url: 'http://efila.test/atendente.inicia/'+id, // Endpoint da sua API
+        url: '{{secure_url("atendente.inicia")}}/'+id, // Endpoint da sua API
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {
@@ -484,7 +485,7 @@ function iniciaAtendimento(id) {
 
 function encerraAtendimento(id) {
     $.ajax({
-        url: 'http://efila.test/atendente.encerra/'+id, // Endpoint da sua API
+        url: '{{secure_url("atendente.encerra")}}/'+id, // Endpoint da sua API
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {
@@ -507,7 +508,7 @@ function encerraAtendimento(id) {
 
 function naoCompareceu(id) {
     $.ajax({
-        url: 'http://efila.test/atendente.naoComapareceu/'+id, // Endpoint da sua API
+        url: '{{secure_url("atendente.naoComapareceu")}}/'+id, // Endpoint da sua API
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {
@@ -554,33 +555,33 @@ $(document).ready(function() {
 
 
     	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="http://efila.test/assets/libs/jquery/jquery-1.11.1.min.js"></script>
-	<script src="http://efila.test/assets/libs/bootstrap/js/bootstrap.min.js"></script>
-	<script src="http://efila.test/assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js"></script>
-	<script src="http://efila.test/assets/libs/jquery-ui-touch/jquery.ui.touch-punch.min.js"></script>
-	<script src="http://efila.test/assets/libs/jquery-detectmobile/detect.js"></script>
-	<script src="http://efila.test/assets/libs/jquery-animate-numbers/jquery.animateNumbers.js"></script>
-	<script src="http://efila.test/assets/libs/ios7-switch/ios7.switch.js"></script>
-	<script src="http://efila.test/assets/libs/fastclick/fastclick.js"></script>
-	<script src="http://efila.test/assets/libs/jquery-blockui/jquery.blockUI.js"></script>
-	<script src="http://efila.test/assets/libs/bootstrap-bootbox/bootbox.min.js"></script>
-	<script src="http://efila.test/assets/libs/jquery-slimscroll/jquery.slimscroll.js"></script>
-	<script src="http://efila.test/assets/libs/jquery-sparkline/jquery-sparkline.js"></script>
-	<script src="http://efila.test/assets/libs/nifty-modal/js/classie.js"></script>
-	<script src="http://efila.test/assets/libs/nifty-modal/js/modalEffects.js"></script>
-	<script src="http://efila.test/assets/libs/sortable/sortable.min.js"></script>
-	<script src="http://efila.test/assets/libs/bootstrap-fileinput/bootstrap.file-input.js"></script>
-	<script src="http://efila.test/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
-	<script src="http://efila.test/assets/libs/bootstrap-select2/select2.min.js"></script>
-	<script src="http://efila.test/assets/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
-	<script src="http://efila.test/assets/libs/pace/pace.min.js"></script>
-	<script src="http://efila.test/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-	<script src="http://efila.test/assets/libs/jquery-icheck/icheck.min.js"></script>
+	<script src="{{ asset('assets/libs/jquery/jquery-1.11.1.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/bootstrap/js/bootstrap.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/jqueryui/jquery-ui-1.10.4.custom.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/jquery-ui-touch/jquery.ui.touch-punch.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/jquery-detectmobile/detect.js')}}"></script>
+	<script src="{{ asset('assets/libs/jquery-animate-numbers/jquery.animateNumbers.js')}}"></script>
+	<script src="{{ asset('assets/libs/ios7-switch/ios7.switch.js')}}"></script>
+	<script src="{{ asset('assets/libs/fastclick/fastclick.js')}}"></script>
+	<script src="{{ asset('assets/libs/jquery-blockui/jquery.blockUI.js')}}"></script>
+	<script src="{{ asset('assets/libs/bootstrap-bootbox/bootbox.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/jquery-slimscroll/jquery.slimscroll.js')}}"></script>
+	<script src="{{ asset('assets/libs/jquery-sparkline/jquery-sparkline.js')}}"></script>
+	<script src="{{ asset('assets/libs/nifty-modal/js/classie.js')}}"></script>
+	<script src="{{ asset('assets/libs/nifty-modal/js/modalEffects.js')}}"></script>
+	<script src="{{ asset('assets/libs/sortable/sortable.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/bootstrap-fileinput/bootstrap.file-input.js')}}"></script>
+	<script src="{{ asset('assets/libs/bootstrap-select/bootstrap-select.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/bootstrap-select2/select2.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/pace/pace.min.js')}}"></script>
+	<script src="{{ asset('assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
+	<script src="{{ asset('assets/libs/jquery-icheck/icheck.min.js')}}"></script>
 
 	<!-- Demo Specific JS Libraries -->
-	<script src="http://efila.test/assets/libs/prettify/prettify.js"></script>
+	<script src="{{ asset('assets/libs/prettify/prettify.js')}}"></script>
 
-	<script src="http://efila.test/assets/js/init.js"></script>
+	<script src="{{ asset('assets/js/init.js')}}"></script>
 
 
 

@@ -35,8 +35,8 @@
 
           <td>
 
-            <a class="btn btn-danger" href="{{ route('local.delete',$locais->id_local) }}" ><i class="fa fa-trash-o"></i> Deletar</a>
-            <a class="btn btn-primary" href="{{ route('local.edit',$locais->id_local) }}"><i class="fa fa-refresh"></i> Atualizar</a>
+            <a class="btn btn-danger" title="deletar" href="{{ route('local.delete',$locais->id_local) }}" ><i class="fa fa-trash-o"></i> </a>
+            <a class="btn btn-warning" title="editar" href="{{ route('local.edit',$locais->id_local) }}"><i class="fa fa-edit"></i> </a>
 
     </td>
 
