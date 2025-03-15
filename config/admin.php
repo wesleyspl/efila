@@ -7,7 +7,7 @@ return [
     'menu' => [
         [
             'title' => 'Inicio',
-            'icon' => 'icon-home-3',
+            'icon' => 'fas fa-tachometer-alt',
             'url' => '/',
             'active' => ['home*'],
             'sub_menu' => [
@@ -23,14 +23,14 @@ return [
         
         [
             'title' => 'Paineis',
-            'icon' => 'icon-window',
+            'icon' => 'fa fa-solid fa-tv',
             'url' => '#',
-            'active' => ['admin/dashboard*'],
+            'active' => ['/painel*'],
             'sub_menu' => [
                 [
                     'title' => 'Painel de Senha',
                     'url' => 'painel',
-                    'active' => ['painel*'],
+                    'active' => ['/painel*'],
                 ],
                 [
                     'title' => 'Painel Touch',
@@ -42,7 +42,7 @@ return [
        
         [
             'title' => 'Cadastros',
-            'icon' => 'icon-folder-3',
+            'icon' => 'fa fa-solid fa-folder-open',
             'url' => '#',
             'active' => ['admin/dashboard*'],
             'sub_menu' => [
@@ -65,7 +65,7 @@ return [
         ],
         [
             'title' => 'Triagem',
-            'icon' => 'icon-clipboard-1',
+            'icon' => 'fa fa-solid fa-code-branch',
             'url' => '#',
             'active' => ['local*'],
             'sub_menu' => [

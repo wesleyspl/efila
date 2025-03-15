@@ -18,6 +18,10 @@ use App\Models\Departamento;
 use Illuminate\Support\Facades\Route;
 
 Route::get('livewire',[LiveController::class,'index'])->name('livewire');
+//
+Route::get('adm',[HomeController::class,'adm'])->name('adm');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

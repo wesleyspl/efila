@@ -1,4 +1,4 @@
-@extends('templates.admin')
+@extends('templates.admin1')
 
 @section('content')
 
@@ -11,12 +11,12 @@
 
 @endif
 
-<div class="widget">
 
-@include('servicos.partials.table-servico')
+   
+@include('servicos.partials.table-servico',compact('servicos'))
 
 
- </div>
+ 
 
 
 

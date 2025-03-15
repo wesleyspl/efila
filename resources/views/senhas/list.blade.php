@@ -1,4 +1,4 @@
-@extends('templates.admin')
+@extends('templates.admin1')
 
 @section('content')
 
@@ -20,13 +20,13 @@
 @endif
 
 
-    <div class="widget">
+   
        
       
       @include('senhas.partials.table-senha')
 
 
-    </div>
+   
 
 
 

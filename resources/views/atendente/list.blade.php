@@ -1,4 +1,4 @@
-@extends('templates.admin')
+@extends('templates.admin1')
 
 @section('content')
 
@@ -11,13 +11,11 @@
 
 @endif
 
-<div class="widget">
 
-    <div class="widget-content">
+
+   
 @include('atendente.partials.table-atendente')
-    </div>
- 
- </div>
+  
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Home;
+use App\Models\Servico;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session as FacadesSession;
@@ -41,6 +42,27 @@ class HomeController extends Controller
          ];
              return view('home',$data);
      }
+
+
+
+   public function adm(){
+
+
+   
+    $data=[
+        "titulo"=>$this->titulo,
+        'subtitulo'=>$this->subtilulo,
+        'servicos'=>Servico::where('status','=','ativo')->paginate(5)
+     ];
+        return view('teste',$data);
+
+   }
+
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.
