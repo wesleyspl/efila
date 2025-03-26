@@ -220,13 +220,18 @@ class AtendenteController extends Controller
        }
     }
 
-    public function atualizaFila()
+    public function atualizaFila($id=null)
     {
         // Obtém o usuário autenticado
-        $user = Auth::user();
-
-        // Busca o atendente vinculado ao usuário
+        if($id==null){
+            $user = Auth::user(); 
+             // Busca o atendente vinculado ao usuário
         $atendente = Atendente::where('pessoa_id', $user->pessoa_id)->first();
+        }else{
+            $atendente = Atendente::where('pessoa_id', $id)->first();
+        }
+
+       
 
         if (!$atendente) {
             return response()->json(['fila' => []]); // Retorna fila vazia se não houver atendente

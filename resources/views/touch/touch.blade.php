@@ -213,7 +213,7 @@
             $("#Normal").click(function (event) {
                 var servico = $("#Normal").val();
                 console.log($("#Normal").val());
-                gerarSenha("{{ secure_url('senha.emitir') }}/" + servico + "/0");
+                gerarSenha("{{ url('senha.emitir') }}/" + servico + "/0");
                 resetDivs();
             });
 
@@ -221,7 +221,7 @@
            $("#Prioritaria").click(function (event) {
                 var servico = $("#Prioritaria").val();
                 console.log($("#Prioritaria").val());
-                gerarSenha("{{ secure_url('senha.emitir') }}/" + servico + "/1");
+                gerarSenha("{{ url('senha.emitir') }}/" + servico + "/1");
                 resetDivs();
             });
              // Função para resetar as divs à configuração inicial

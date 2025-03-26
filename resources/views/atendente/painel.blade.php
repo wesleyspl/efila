@@ -389,28 +389,12 @@
 
  </div>
     </div>
- <!-- End right content -->
-
- <!-- End of page -->
-  <!-- the overlay modal e
-
-
-
-
- ///
-
-
-            <!-- ============================================================== -->
-            <!-- End content here -->
-            <!-- ============================================================== -->
-
-        <!-- End right content -->
 
         <script>
       // Defina a função fora de $(document).ready() para torná-la globalmente acessível
 function atualizarFila() {
     $.ajax({
-        url: '{{secure_url("atendente.atualizaFila")}}', // Endpoint da sua API
+        url: '{{route("atendente.atualizaFila")}}', // Endpoint da sua API
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {
@@ -437,7 +421,7 @@ function atualizarFila() {
 
 function chamarProximo() {
     $.ajax({
-        url: '{{secure_url("atendente.chamar")}}', // Endpoint da sua API
+        url: '{{route("atendente.chamar")}}', // Endpoint da sua API
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {
@@ -461,7 +445,7 @@ function chamarProximo() {
 
 function iniciaAtendimento(id) {
     $.ajax({
-        url: '{{secure_url("atendente.inicia")}}/'+id, // Endpoint da sua API
+        url: '{{ route("atendente.inicia", ":id") }}'.replace(':id', id), // Endpoint da sua API
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {
@@ -485,7 +469,7 @@ function iniciaAtendimento(id) {
 
 function encerraAtendimento(id) {
     $.ajax({
-        url: '{{secure_url("atendente.encerra")}}/'+id, // Endpoint da sua API
+        url: '{{ route("atendente.encerra", ":id") }}'.replace(':id', id),
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {
@@ -508,7 +492,7 @@ function encerraAtendimento(id) {
 
 function naoCompareceu(id) {
     $.ajax({
-        url: '{{secure_url("atendente.naoComapareceu")}}/'+id, // Endpoint da sua API
+        url: '{{ route("atendente.naoComapareceu", ":id") }}'.replace(':id', id),
         type: 'GET', // Método da requisição
         dataType: 'json', // Formato de resposta esperado
         success: function(response) {

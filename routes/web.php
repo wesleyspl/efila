@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\ApiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AtendenteController;
 use App\Http\Controllers\DepartamentoController;
@@ -17,7 +18,7 @@ use App\Http\Controllers\TriagemController;
 use App\Models\Departamento;
 use Illuminate\Support\Facades\Route;
 
-Route::get('livewire',[LiveController::class,'index'])->name('livewire');
+Route::get('api/{id}',[ApiController::class,'atualizaFila'])->name('api');
 //
 Route::get('adm',[HomeController::class,'adm'])->name('adm');
 

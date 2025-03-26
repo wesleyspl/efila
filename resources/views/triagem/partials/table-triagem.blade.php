@@ -28,7 +28,7 @@
                                 <td>{{ $atendentes['pessoa']->email }}</td>
                                 <td>
                                     <a class="btn btn-info btn-sm" title="Visualizar" href="{{ route('triagem.show', $atendentes->id_atendente) }}"><i class="fa fa-eye"></i></a>
-                                    <a class="btn btn-primary btn-sm" title="Configurar" href="{{ route('triagem.config', $atendentes->id_atendente) }}"><i class="fa fa-gear"></i></a>
+                                    <a class="btn btn-primary btn-sm" title="Configurar" href="{{ route('triagem.config', $atendentes->id_atendente) }}"><i class="fa fa-solid fa-gamepad"></i></a>
                                 </td>
                             </tr>
                         @endforeach

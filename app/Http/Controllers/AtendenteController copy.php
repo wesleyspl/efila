@@ -207,7 +207,7 @@ class AtendenteController extends Controller
 
     }
 
-    public function atualizaFila()
+    public function atualizaFila($id=null)
     {
         // Obtém o usuário autenticado
         $user = Auth::user();

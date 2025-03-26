@@ -25,8 +25,8 @@
                                 <td>{{ $servico->nome }}</td>
                                 <td>{{ $servico->sigla }}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" title="Configurar" href="{{ route('servico.prioridade', $servico->id_servico) }}"><i class="fa fa-gear"></i></a>
-                                    <a class="btn btn-danger btn-sm" title="Deletar" href="{{ route('servico.delete', $servico->id_servico) }}"><i class="fa fa-trash-o"></i></a>
+                                    <a class="btn btn-primary btn-sm" title="Configurar" href="{{ route('servico.prioridade', $servico->id_servico) }}"><i class="fa fa-solid fa-gamepad"></i></a>
+                                    <a class="btn btn-danger btn-sm" title="Deletar" href="{{ route('servico.delete', $servico->id_servico) }}"><i class="fa fa-solid fa-trash"></i></a>
                                     <a class="btn btn-warning btn-sm" title="Editar" href="{{ route('servicos.edit', $servico->id_servico) }}"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>

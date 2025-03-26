@@ -27,7 +27,7 @@
                                 <td>{{ $atendentes['pessoa']->cpf }}</td>
                                 <td>{{ $atendentes['pessoa']->email }}</td>
                                 <td>
-                                    <a class="btn btn-danger btn-sm" title="Deletar" href="{{ route('atendente.delete', $atendentes->id_atendente) }}"><i class="fa fa-trash-o"></i></a>
+                                    <a class="btn btn-danger btn-sm" title="Deletar" href="{{ route('atendente.delete', $atendentes->id_atendente) }}"><i class="fa fa-solid fa-trash"></i></a>
                                     <a class="btn btn-warning btn-sm" title="Editar" href="{{ route('atendente.edit', $atendentes->id_atendente) }}"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>

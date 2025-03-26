@@ -60,6 +60,10 @@ edit  sua conexao
 - Dashboard com estatísticas de atendimento  
 - Sistema se em desenvolvimento !!!!!!!
 
+## Tela Principal 
+
+<img src="https://cerradoclound.com.br/public/uploads/file-7.png" width="400" height="500" alt="cerrado cloud">
+
 
 ## 🤝 Contribuição
 Junte-se ao forum.

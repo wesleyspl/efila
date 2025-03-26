@@ -3,6 +3,8 @@
 return [
 
   'title'=>'Efila | ',
+  'link_site'=>'https://cerradoclound.com.br',
+
 #### menu do side-bar do sistema 
     'menu' => [
         [
@@ -15,6 +17,7 @@ return [
                     'title' => 'Dashboard',
                     'url' => '/',
                     'active' => ['/*'],
+                    'icon' => 'fa fa-solid fa-tv',
                 ],
                 
             ],
@@ -24,18 +27,21 @@ return [
         [
             'title' => 'Paineis',
             'icon' => 'fa fa-solid fa-tv',
-            'url' => '#',
+            'url' => '/painel',
             'active' => ['/painel*'],
             'sub_menu' => [
                 [
                     'title' => 'Painel de Senha',
-                    'url' => 'painel',
+                    'url' => '/painel',
                     'active' => ['/painel*'],
+                    'icon' => 'fa fa-solid fa-tv',
+
                 ],
                 [
-                    'title' => 'Painel Touch',
+                    'title' => 'Auto Atendimento',
                     'url' => 'touch',
                     'active' => ['touch*'],
+                    'icon' => 'fas fa-ticket-alt',
                 ],
             ],
         ],
@@ -44,28 +50,31 @@ return [
             'title' => 'Cadastros',
             'icon' => 'fa fa-solid fa-folder-open',
             'url' => '#',
-            'active' => ['admin/dashboard*'],
+            'active' => ['sevico*'],
             'sub_menu' => [
                 [
                     'title' => 'Serviços',
                     'url' => 'servico',
                     'active' => ['painel*'],
+                    'icon' => 'fas fa-wrench',
                 ],
                 [
-                    'title' => 'local',
+                    'title' => 'local de atendimento',
                     'url' => 'local',
                     'active' => ['local*'],
+                    'icon' => 'fas fa-home',
                 ],
                 [
                     'title' => 'Atendente',
                     'url' => 'atendente',
                     'active' => ['touch*'],
+                    'icon' => 'fas fa-users',
                 ],
             ],
         ],
         [
             'title' => 'Triagem',
-            'icon' => 'fa fa-solid fa-code-branch',
+            'icon' => 'fas fa-list-alt',
             'url' => '#',
             'active' => ['local*'],
             'sub_menu' => [
@@ -73,15 +82,18 @@ return [
                     'title' => 'Configurar',
                     'url' => 'triagem',
                     'active' => ['touch*'],
-                ],
-                [
-                    'title' => 'Tirar senha',
-                    'url' => 'senha',
-                    'active' => ['touch*'],
+                    'icon' => 'bi bi-card-checklist fas fa-cogs',
                 ],
                
+               
             ],
-        ],   
+        ],  
+        [
+            'title' => 'Emitir senha',
+            'url' => 'senha',
+            'active' => ['touch*'],
+            'icon' => 'fas fa-ticket-alt',
+        ], 
        
 
 

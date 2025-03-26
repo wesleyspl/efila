@@ -1,4 +1,4 @@
-<div class="left side-menu">
+<div class="left side-menu-yellow">
     <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 732px;">
         <div class="sidebar-inner slimscrollleft" style="overflow: hidden; width: auto; height: 732px;">
             <div class="clearfix"></div>
@@ -15,7 +15,7 @@
                                 <i class="fa {{ $menu['icon'] }}"></i>
                                 <span>{{ $menu['title'] }}</span>
                                 @if(isset($menu['sub_menu']))
-                                    <span class="pull-right"><i class="fa fa-angle-down"></i></span>
+                                    <span class="pull-right"> <i class="fa {{ $menu['sub_menu.icon'] }}"></i></i></span>
                                 @endif
                             </a>
                             @if(isset($menu['sub_menu']))

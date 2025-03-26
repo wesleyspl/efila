@@ -1,8 +1,9 @@
-                  <!-- Footer Start -->
-                  <footer>
-                    Cerrado cloud &copy; 2025 - 
-                     <div class="footer-links pull-right">
-                        <a href="https://forum.cerradoclound.com.br">Sobre o projeto</a><a href="https://cerradoclound.com.br">Support</a><a href="#">Terms of Service</a><a href="#">Legal</a><a href="#">Help</a><a href="#">Contact Us</a>
-                    </div>
-                </footer>
-                <!-- Footer End -->
+       <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      --
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2013-2025 <a href="https://cerradoclound.com.br">{{config('admin.title')}}</a>.</strong> Direitos reservados.
+  </footer>

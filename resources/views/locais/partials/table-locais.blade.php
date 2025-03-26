@@ -23,7 +23,7 @@
                                 <td>{{ $locais->id_local }}</td>
                                 <td>{{ $locais->nome }}</td>
                                 <td>
-                                    <a class="btn btn-danger btn-sm" title="Deletar" href="{{ route('local.delete', $locais->id_local) }}"><i class="fa fa-trash-o"></i></a>
+                                    <a class="btn btn-danger btn-sm" title="Deletar" href="{{ route('local.delete', $locais->id_local) }}"><i class="fa fa-solid fa-trash"></i></a>
                                     <a class="btn btn-warning btn-sm" title="Editar" href="{{ route('local.edit', $locais->id_local) }}"><i class="fa fa-edit"></i></a>
                                 </td>
                             </tr>

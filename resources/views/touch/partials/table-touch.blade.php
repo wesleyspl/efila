@@ -25,9 +25,9 @@
                                 <td>{{ $paineis->nome }}</td>
                                 <td>{{ $paineis->obs }}</td>
                                 <td>
-                                    <a class="btn btn-info btn-sm" target="_blank" title="Abrir painel" href="{{ route('touch.show', $paineis->id_touch) }}"><i class="fa fa-share"></i></a>
-                                    <a class="btn btn-danger btn-sm" title="Deletar" href="{{ route('touch.desativarPainel', $paineis->id_touch) }}"><i class="fa fa-trash-o"></i></a>
-                                    <a class="btn btn-primary btn-sm" title="Configurar" href="{{ route('touch.config', $paineis->id_touch) }}"><i class="fa fa-gear"></i></a>
+                                    <a class="btn btn-info btn-sm" target="_blank" title="Abrir painel" href="{{ route('touch.show', $paineis->id_touch) }}"><i class="fa fa-solid fa-desktop"></i></a>
+                                    <a class="btn btn-danger btn-sm" title="Deletar" href="{{ route('touch.desativarPainel', $paineis->id_touch) }}"><i class="fa fa-solid fa-trash"></i></a>
+                                    <a class="btn btn-primary btn-sm" title="Configurar" href="{{ route('touch.config', $paineis->id_touch) }}"><i class="fa fa-solid fa-gamepad"></i></a>
                                 </td>
                             </tr>
                         @endforeach
