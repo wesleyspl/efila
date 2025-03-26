@@ -59,6 +59,20 @@ edit  sua conexao
 - Implementação de autenticação de usuários  
 - Dashboard com estatísticas de atendimento  
 - Sistema se em desenvolvimento !!!!!!!
+- 
+## DEMO do sistema !!!!EM CONSTRUÇÃO !!!!  
+
+  Painel
+- https://efila.cerradoclound.com.br/
+ - usuario:admin@admin.com
+ - senha:123456
+
+ Painel atendente
+ - https://efila.cerradoclound.com.br/atendente.painel
+ - usuario:admin@admin.com
+ - senha:123456
+
+FORCE SEMPRE HTTPS !!
 
 ## Tela Principal 
 
