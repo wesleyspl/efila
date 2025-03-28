@@ -76,7 +76,7 @@ FORCE SEMPRE HTTPS !!
 
 ## Tela Principal 
 
-<img src="https://cerradoclound.com.br/public/uploads/file-7.png" width="400" height="500" alt="cerrado cloud">
+<img src="https://cerradoclound.com.br/public/uploads/file-7.png"  alt="cerrado cloud">
 
 
 ## 🤝 Contribuição

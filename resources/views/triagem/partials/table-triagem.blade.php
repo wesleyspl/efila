@@ -2,7 +2,7 @@
     <div class="card-header">
         <h3 class="card-title"><i class="icon-window"></i> <strong>Configurar</strong> Triagem</h3>
         <div class="card-tools">
-            <a href="#" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Novo</a>
+           
         </div>
     </div>
     <!-- /.card-header -->

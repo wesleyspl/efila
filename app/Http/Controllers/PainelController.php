@@ -110,7 +110,8 @@ class PainelController extends Controller
         $dados['ultimas_senhas']=$ultimasSenhas;
        // Exemplo para o seu caso com as últimas senhas chamadas: */
         $dados['id_painel']=$id_painel;
-
+        $dados['titulo']="https://www.youtube.com/embed/nLIJJjLMRaA?autoplay=1";
+ 
        return view('painel.painel',$dados);
     }
 
