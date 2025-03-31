@@ -3,11 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chamada de Senhas</title>
+  <title>Efila-Senhas</title>
+   <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.ico') }}">
+
   <!-- CDN do Vue.js -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
   <!-- CDN do Axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="{{ asset('assets/java/FWDUVPlayer.js')}}"></script>
+  <link rel="stylesheet" type="text/css"  href="{{ asset('assets/content/global.css')}}"/>
+ 
 
   <style>
     * {
@@ -151,7 +157,12 @@
   <div id="app" class="container">
     <div class="content">
       <div v-if="showVideo" class="video-container" :class="{ 'video-minimized': isMinimized }">
-        <iframe :src="videoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+       <!-- <iframe :src="videoUrl" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>-->
+       <x-video-playlist 
+       type="youtube" 
+       videoId="{{$painel->url_midia }}"
+      
+   />
       </div>
 
       <div v-if="isPasswordVisible" class="content">
@@ -190,90 +201,136 @@
   <audio id="alert-sound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
 
   <script>
+    let player; // Variável para armazenar o player do YouTube
+
     new Vue({
-      el: '#app',
-      data: {
-        currentPassword: '',
-        sigla: '',
-        nomeLocal: '',
-        numeroLocal: '',
-        lastPasswords: [],
-        lastDisplayedPassword: '', // Armazenar a última senha exibida
-        videoUrl: '{{ $titulo }}', // Link do vídeo do YouTube
-        showVideo: true, // Variável para controlar a exibição do vídeo ou senha
-        isMinimized: false, // Controla o estado de minimização do vídeo
-        isPasswordVisible: false, // Controla a exibição da senha na tela
-      },
-      created() {
-        this.fetchPasswordData();
-        this.updateInterval = setInterval(this.fetchPasswordData, 3000); // Atualiza a cada 3 segundos
-      },
-      destroyed() {
-        clearInterval(this.updateInterval); // Limpa o intervalo
-      },
-      methods: {
-        fetchPasswordData() {
-          axios.get('/painel.painelAtualiza/3')
-            .then(response => {
-              // Atualizar a senha atual
-              const senhaAtual = response.data.senha;
-              this.currentPassword = senhaAtual.numero;
-              this.sigla = senhaAtual.sigla;
-              this.nomeLocal = senhaAtual.nome_local;
-              this.numeroLocal = senhaAtual.numero_local;
-
-              // Atualizar as últimas 5 senhas
-              this.lastPasswords = response.data.historico[0].slice(0, 5).map(item => ({
-                sigla: item.sigla, // Adicionando sigla para cada senha
-                numero: item.numero,
-                nome_local: item.nome_local,
-                numero_local: item.numero_local,
-              }));
-
-              // Verificar se a senha atual é igual à última senha exibida
-              if (this.currentPassword !== this.lastDisplayedPassword) {
-                this.showPassword();
-              } else {
-                this.showVideo = true; // Exibe o vídeo se a senha for igual à última exibida
-              }
-            })
-            .catch(error => {
-              console.error('Erro ao buscar dados da senha:', error);
-            });
+        el: '#app',
+        data: {
+            currentPassword: '',
+            sigla: '',
+            nomeLocal: '',
+            numeroLocal: '',
+            lastPasswords: [],
+            lastDisplayedPassword: '', // Armazenar a última senha exibida
+            videoUrl: '{{$painel->url_midia }}', // Link do vídeo do YouTube
+            showVideo: true, // Variável para controlar a exibição do vídeo ou senha
+            isMinimized: false, // Controla o estado de minimização do vídeo
+            isPasswordVisible: false, // Controla a exibição da senha na tela
+            isPlayerReady: false, // Indica se o player está pronto
         },
+        created() {
+            this.fetchPasswordData();
+            this.updateInterval = setInterval(this.fetchPasswordData, 3000); // Atualiza a cada 3 segundos
 
-        showPassword() {
-          // Começar a transição do vídeo
-          this.isMinimized = true; // Minimiza o vídeo
-          this.showVideo = true; // Esconde o vídeo
-          this.isPasswordVisible = true; // Exibe a senha
-          this.playAlertSound(); // Toca o som de alerta
-          this.speakPassword(); // Vocaliza a senha com os dados
-
-          this.lastDisplayedPassword = this.currentPassword; // Armazenar a senha atual como a última exibida
-
-          setTimeout(() => {
-            this.isPasswordVisible = false; // Esconde a senha
-            this.showVideo = true; // Mostra o vídeo novamente
-            this.isMinimized = false; // Restaura o vídeo ao tamanho original
-          }, 10000); // 10 segundos
+            // Inicializa o YouTube Player API
+            this.loadYouTubeAPI();
         },
-
-        playAlertSound() {
-          const alertSound = document.getElementById('alert-sound');
-          alertSound.play();
+        destroyed() {
+            clearInterval(this.updateInterval); // Limpa o intervalo
         },
+        methods: {
+            fetchPasswordData() {
+                axios.get('/painel.painelAtualiza/{{ $id_painel }}')
+                    .then(response => {
+                        // Atualizar a senha atual
+                        const senhaAtual = response.data.senha;
+                        this.currentPassword = senhaAtual.numero;
+                        this.sigla = senhaAtual.sigla;
+                        this.nomeLocal = senhaAtual.nome_local;
+                        this.numeroLocal = senhaAtual.numero_local;
 
-        speakPassword() {
-          // Usando a API nativa speechSynthesis para vocalizar a senha + sigla + número + nome_local + número_local
-          const utterance = new SpeechSynthesisUtterance(
-            `Senha número ${this.currentPassword}, sigla ${this.sigla},${this.nomeLocal},${this.numeroLocal}`
-          );
-          utterance.lang = 'pt-BR'; // Define a linguagem para português
-          window.speechSynthesis.speak(utterance); // Vocaliza
-        },
-      }
+                        // Atualizar as últimas 5 senhas
+                        this.lastPasswords = response.data.historico[0].slice(0, 5).map(item => ({
+                            sigla: item.sigla, // Adicionando sigla para cada senha
+                            numero: item.numero,
+                            nome_local: item.nome_local,
+                            numero_local: item.numero_local,
+                        }));
+
+                        // Verificar se a senha atual é igual à última senha exibida
+                        if (this.currentPassword !== this.lastDisplayedPassword) {
+                            this.showPassword();
+                        } else {
+                            this.showVideo = true; // Exibe o vídeo se a senha for igual à última exibida
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao buscar dados da senha:', error);
+                    });
+            },
+
+            showPassword() {
+                // Minimiza o vídeo e muto
+                this.isMinimized = true; // Minimiza o vídeo
+                this.muteVideo(); // Muta o vídeo
+
+                // Exibe a senha
+                this.isPasswordVisible = true; // Exibe a senha
+                this.playAlertSound(); // Toca o som de alerta
+                this.speakPassword(); // Vocaliza a senha com os dados
+
+                this.lastDisplayedPassword = this.currentPassword; // Armazenar a senha atual como a última exibida
+
+                setTimeout(() => {
+                    this.isPasswordVisible = false; // Esconde a senha
+                    this.isMinimized = false; // Restaura o vídeo ao tamanho original
+                    this.unmuteVideo(); // Desmuta o vídeo
+                }, 10000); // 10 segundos
+            },
+
+            playAlertSound() {
+                const alertSound = document.getElementById('alert-sound');
+                alertSound.play();
+            },
+
+            speakPassword() {
+                // Usando a API nativa speechSynthesis para vocalizar a senha + sigla + número + nome_local + número_local
+                const utterance = new SpeechSynthesisUtterance(
+                    `Senha número ${this.currentPassword}, sigla ${this.sigla},${this.nomeLocal},${this.numeroLocal}`
+                );
+                utterance.lang = 'pt-BR'; // Define a linguagem para português
+                window.speechSynthesis.speak(utterance); // Vocaliza
+            },
+
+            loadYouTubeAPI() {
+                // Carrega a API do YouTube IFrame Player
+                const tag = document.createElement('script');
+                tag.src = "https://www.youtube.com/iframe_api";
+                const firstScriptTag = document.getElementsByTagName('script')[0];
+                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                // Define a função global para inicializar o player
+                window.onYouTubeIframeAPIReady = () => {
+                    player = new YT.Player('youtube-player', {
+                        events: {
+                            'onReady': this.onPlayerReady
+                        }
+                    });
+                };
+            },
+
+            onPlayerReady(event) {
+                console.log('YouTube Player is ready');
+                this.isPlayerReady = true; // Marca o player como pronto
+            },
+
+            muteVideo() {
+                if (this.isPlayerReady && player) {
+                    player.mute(); // Muta o vídeo
+                } else {
+                    console.warn('Player ainda não está pronto para mutar o vídeo.');
+                }
+            },
+
+            unmuteVideo() {
+                if (this.isPlayerReady && player) {
+                    player.unMute(); // Desmuta o vídeo
+                } else {
+                    console.warn('Player ainda não está pronto para desmutar o vídeo.');
+                }
+            }
+        }
     });
-  </script>
+</script>
 </body>
 </html>

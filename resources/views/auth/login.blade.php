@@ -1,3 +1,7 @@
+ <title>Efila | Login</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.ico') }}">
+
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />

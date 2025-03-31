@@ -110,7 +110,7 @@ class PainelController extends Controller
         $dados['ultimas_senhas']=$ultimasSenhas;
        // Exemplo para o seu caso com as últimas senhas chamadas: */
         $dados['id_painel']=$id_painel;
-        $dados['titulo']="https://www.youtube.com/embed/nLIJJjLMRaA?autoplay=1";
+        $dados['painel']=Painel::where('id_painel',$id_painel)->first();
  
        return view('painel.painel',$dados);
     }
@@ -163,27 +163,44 @@ class PainelController extends Controller
 
 
   public function save(Request $request){
-
-
+        
+    ### MODIFICADO PARA SALVAR CONFIGURAÇÃO DO PAINEL
+      
         $painel_id=$request->id_painel;
         $servico_id=$request->input('id_servico', []);
-      foreach ($servico_id as $servico) {
+        $painel=[
+          'url_midia'=>$request->input('url_midia'),
+          'player'=>$request->input('player')
+];     
+
+        foreach ($servico_id as $servico) {
         $s=Painel_Servico::where('servico_id',$servico)
         ->where('painel_id',$painel_id)
         ->get();
+
+
+
         if($s->isEmpty()){
             $dados=['painel_id'=>$painel_id,
                     'servico_id'=>$servico
+                    
       ];
+     ### configuração do painel""video
+      
+      
            Painel_Servico::create($dados);
       }else{
 
         $dados=['painel_id'=>$painel_id,
-        'servico_id'=>$servico ];
+        'servico_id'=>$servico ,
+      ];
+
+     
         $s->update($dados);
       }
     }
-
+    $p=Painel::where('id_painel', $request->id_painel)->first();
+    $p->update($painel);
     return redirect()->route('painel')->with('success','Painel Atualizado!');
 
   }

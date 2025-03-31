@@ -4,6 +4,7 @@ return [
 
   'title'=>'Efila | ',
   'link_site'=>'https://cerradoclound.com.br',
+  'favicon'=>'assets/img/favicon.png',
 
 #### menu do side-bar do sistema 
     'menu' => [

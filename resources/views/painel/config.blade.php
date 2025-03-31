@@ -30,7 +30,21 @@
                 <label>Obs</label>
                 <input type="text" class="form-control" name="obs" disabled value="{{ $painel->obs }}">
             </div>
-
+            <fieldset class="border p-3">
+            <div class="form-group">
+                <label>Habilitar video </label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="player-checkbox" name="player" value="1" onclick="toggleVideoInput(this.checked)">
+                    <label class="form-check-label" for="player-checkbox">Video no painel</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>URL do Vídeo</label>
+                <input type="text" class="form-control" name="url_midia" id="video-url" disabled value="{{ $painel->url_midia ?? '' }}">
+            </div>
+            </fieldset>
+            <br>
             <fieldset class="border p-3">
                 <div class="form-group">
                     <label>Serviços do painel</label>
@@ -73,4 +87,10 @@
     <!-- /.card-body -->
 </div>
 <!-- /.card -->
+<script>
+    function toggleVideoInput(enable) {
+        const videoUrlInput = document.getElementById('video-url');
+        videoUrlInput.disabled = !enable;
+    }
+</script>
 @endsection
