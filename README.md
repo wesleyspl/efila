@@ -58,7 +58,7 @@ edit  sua conexao
 
 - Implementação de autenticação de usuários  
 - Dashboard com estatísticas de atendimento  
-- Sistema se em desenvolvimento !!!!!!!
+- Sistema  em desenvolvimento !!!!!!!
 - 
 ## DEMO do sistema !!!!EM CONSTRUÇÃO !!!!  
 
@@ -76,8 +76,10 @@ FORCE SEMPRE HTTPS !!
 
 ## Tela Principal 
 
-<img src="https://cerradoclound.com.br/public/uploads/file-7.png" width="400" height="500" alt="cerrado cloud">
+<img src="https://cerradoclound.com.br/public/uploads/file-7.png" alt="cerrado cloud">
 
+## Tela Chamada de senhas
+<img src="https://cerradoclound.com.br/public/uploads/file-8.png" alt="cerrado cloud">
 
 ## 🤝 Contribuição
 Junte-se ao forum.
